@@ -1,10 +1,68 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const teamMembersDiv = document.getElementById('teamMembers');
+    const problemSelect = document.getElementById('problemStatement');
+    const problemDescription = document.getElementById('problemDescription');
+    const problemAvailability = document.getElementById('problemAvailability');
     
     // Add 3 team member sections
     for (let i = 1; i <= 3; i++) {
         addTeamMemberSection(i);
     }
+
+    // Check registration availability
+    try {
+        const response = await fetch('http://localhost:3000/api/registration-status');
+        const data = await response.json();
+        
+        if (!data.isOpen) {
+            alert('Registration is closed. Maximum number of teams reached.');
+            window.location.href = '/game-hacking';
+            return;
+        }
+    } catch (error) {
+        console.error('Error checking registration status:', error);
+    }
+
+    // Load problem statements
+    try {
+        const response = await fetch('http://localhost:3000/api/problems');
+        const { data: problems } = await response.json();
+        
+        problems.forEach(problem => {
+            const option = document.createElement('option');
+            option.value = problem.id;
+            option.textContent = problem.title;
+            option.dataset.description = problem.description;
+            option.dataset.teamsAssigned = problem.teams_assigned;
+            problemSelect.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Error loading problem statements:', error);
+    }
+
+    // Handle problem statement selection
+    problemSelect.addEventListener('change', () => {
+        const selectedOption = problemSelect.selectedOptions[0];
+        if (selectedOption.value) {
+            const teamsAssigned = parseInt(selectedOption.dataset.teamsAssigned);
+            problemDescription.innerHTML = `
+                <p class="problem-description-text">${selectedOption.dataset.description}</p>
+                <p class="teams-assigned">Teams assigned: ${teamsAssigned}/3</p>
+            `;
+            
+            if (teamsAssigned >= 3) {
+                problemAvailability.textContent = 'This problem statement is no longer available';
+                problemAvailability.classList.add('unavailable');
+                problemSelect.value = '';
+            } else {
+                problemAvailability.textContent = `${3 - teamsAssigned} slots remaining`;
+                problemAvailability.classList.remove('unavailable');
+            }
+        } else {
+            problemDescription.innerHTML = '';
+            problemAvailability.textContent = '';
+        }
+    });
 
     document.getElementById('registrationForm').addEventListener('submit', handleSubmit);
 });
@@ -50,6 +108,12 @@ function addTeamMemberSection(memberNum) {
 async function handleSubmit(e) {
     e.preventDefault();
     
+    const problemStatementId = document.getElementById('problemStatement').value;
+    if (!problemStatementId) {
+        alert('Please select a problem statement');
+        return;
+    }
+
     const formData = {
         leader: {
             name: document.getElementById('leaderName').value,
@@ -78,14 +142,43 @@ async function handleSubmit(e) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ teamData: formData })
+            body: JSON.stringify({ 
+                teamData: formData,
+                problemStatementId 
+            })
         });
 
         const data = await response.json();
         
         if (data.success) {
-            alert('Registration successful!');
-            window.location.href = '/';
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: #1a1a1a;
+                padding: 2rem;
+                border-radius: 10px;
+                border: 2px solid #00ff00;
+                box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+                z-index: 1000;
+                text-align: center;
+            `;
+            modal.innerHTML = `
+                <h2 style="color: #00ff00; margin-bottom: 1rem;">Registration Successful!</h2>
+                <p style="color: #fff; margin-bottom: 1.5rem;">Your team has been registered successfully.</p>
+                <button onclick="this.parentElement.remove()" style="
+                    background: #00ff00;
+                    color: #000;
+                    border: none;
+                    padding: 0.5rem 1rem;
+                    border-radius: 5px;
+                    cursor: pointer;
+                ">OK</button>
+            `;
+            document.body.appendChild(modal);
+            window.location.href = '/game-hacking';
         } else {
             alert('Registration failed: ' + data.message);
         }
