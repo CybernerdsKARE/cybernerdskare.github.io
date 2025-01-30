@@ -121,89 +121,89 @@ app.post('/api/register', async (req, res) => {
 });
 
 // Initialize problem statements (run once)
-// app.get('/api/init-problems', async (req, res) => {
-//     try {
-//         const problemStatements = [
-//             {
-//                 title: "Zero-Day Vulnerability Detection System",
-//                 description: "Design a system to detect and analyze potential zero-day vulnerabilities in web applications."
-//             },
-//             {
-//                 title: "Blockchain Security Monitor",
-//                 description: "Develop a monitoring system for detecting suspicious transactions and smart contract vulnerabilities."
-//             },
-//             {
-//                 title: "IoT Device Security Framework",
-//                 description: "Create a security framework for protecting IoT devices from common vulnerabilities and attacks."
-//             },
-//             {
-//                 title: "Network Intrusion Detection System",
-//                 description: "Build an AI-powered system to detect and prevent network intrusions in real-time."
-//             },
-//             {
-//                 title: "Secure Password Manager",
-//                 description: "Develop a secure password management system with encryption and multi-factor authentication."
-//             },
-//             {
-//                 title: "Mobile App Security Scanner",
-//                 description: "Create a tool to scan mobile applications for security vulnerabilities and privacy issues."
-//             },
-//             {
-//                 title: "Secure File Sharing System",
-//                 description: "Build an end-to-end encrypted file sharing system with access control mechanisms."
-//             },
-//             {
-//                 title: "Web Application Firewall",
-//                 description: "Design a WAF to protect web applications from common attacks like XSS and SQL injection."
-//             },
-//             {
-//                 title: "Security Awareness Training Platform",
-//                 description: "Develop an interactive platform to train users about cybersecurity best practices."
-//             },
-//             {
-//                 title: "Malware Analysis Toolkit",
-//                 description: "Create tools for analyzing and understanding malware behavior in a safe environment."
-//             },
-//             {
-//                 title: "Cloud Security Monitor",
-//                 description: "Build a system to monitor and protect cloud infrastructure from security threats."
-//             },
-//             {
-//                 title: "Secure Communication Protocol",
-//                 description: "Design a secure protocol for encrypted communication between distributed systems."
-//             },
-//             {
-//                 title: "Access Control System",
-//                 description: "Develop a role-based access control system with audit logging capabilities."
-//             },
-//             {
-//                 title: "Security Incident Response Platform",
-//                 description: "Create a platform to manage and coordinate responses to security incidents."
-//             },
-//             {
-//                 title: "Vulnerability Assessment Tool",
-//                 description: "Build an automated tool for identifying and reporting security vulnerabilities."
-//             }
-//         ];
+app.get('/api/init-problems', async (req, res) => {
+    try {
+        const problemStatements = [
+            {
+                title: "AI-Powered Phishing Detection System",
+                description: "Develop a system to detect and prevent sophisticated phishing attacks using AI. The system should identify deceptive emails, SMS (smishing), fraudulent websites, and modern techniques like AI-generated emails and deepfake voice phishing (vishing)."
+            },
+            {
+                title: "Password-less Secure Authentication System",
+                description: "Create a secure authentication system that eliminates the need for traditional passwords while maintaining strong security. Address challenges like biometric privacy, hardware token adoption, and protection against credential-stuffing attacks."
+            },
+            {
+                title: "Fake News Detection Tool",
+                description: "Build a real-time fake news detection system that analyzes news articles and identifies misinformation using source credibility, language patterns, and fact verification to help users verify content authenticity."
+            },
+            {
+                title: "Cybersecurity Awareness Chatbot",
+                description: "Design an interactive chatbot that educates users about cybersecurity best practices, helping them recognize and avoid common security threats through engaging, personalized conversations."
+            },
+            {
+                title: "Credit Card Fraud Detection System",
+                description: "Develop an AI-based system to detect fraudulent credit card transactions in real-time by analyzing spending patterns, geolocation data, and transaction frequencies while minimizing false positives."
+            },
+            {
+                title: "Cybercrime Reporting & Analysis System",
+                description: "Create a user-friendly platform for reporting and analyzing cybercrime incidents, helping law enforcement track trends and create targeted responses to emerging threats."
+            },
+            {
+                title: "Ransomware Detection & Prevention System",
+                description: "Build a proactive system to detect and prevent ransomware attacks using advanced techniques to identify new variants, fileless attacks, and encryption attempts in real-time."
+            },
+            {
+                title: "Deepfake Detection System",
+                description: "Develop a system to automatically detect AI-generated deepfake content across various media types (audio, video, images) to combat misinformation and protect content integrity."
+            },
+            {
+                title: "Online Fraud Detection System",
+                description: "Create an advanced fraud detection system that identifies various types of online fraud including phishing scams, identity theft, and account takeovers using real-time transaction analysis."
+            },
+            {
+                title: "Secure Password Manager",
+                description: "Design a user-friendly password management system with strong encryption, cross-platform compatibility, and intuitive interfaces to help users maintain unique, secure passwords."
+            },
+            {
+                title: "Data Encryption Tool",
+                description: "Build an educational encryption tool that demonstrates various encryption methods while helping users understand the importance of data protection and privacy."
+            },
+            {
+                title: "Secure File Sharing Platform",
+                description: "Develop an end-to-end encrypted file sharing platform with granular permission controls and user-friendly interfaces for secure document collaboration."
+            },
+            {
+                title: "Online Payment Fraud Detection",
+                description: "Create an AI-driven system to detect fraudulent online payment transactions in real-time while maintaining a positive user experience for legitimate customers."
+            },
+            {
+                title: "Antivirus Software with Real-Time Protection",
+                description: "Design a lightweight antivirus solution with real-time protection capabilities, focusing on modern threats while maintaining system performance."
+            },
+            {
+                title: "Educational Keylogger System",
+                description: "Develop a controlled, educational keylogger tool to demonstrate security vulnerabilities and raise awareness about keystroke logging risks in a safe environment."
+            }
+        ];
 
-//         const { data, error } = await supabase
-//             .from('problem_statements')
-//             .insert(problemStatements);
+        const { data, error } = await supabase
+            .from('problem_statements')
+            .insert(problemStatements);
 
-//         if (error) throw error;
+        if (error) throw error;
 
-//         res.status(200).json({
-//             success: true,
-//             message: 'Problem statements initialized',
-//             data
-//         });
-//     } catch (error) {
-//         res.status(500).json({
-//             success: false,
-//             error: error.message
-//         });
-//     }
-// });
+        res.status(200).json({
+            success: true,
+            message: 'Problem statements initialized',
+            data
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+});
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
