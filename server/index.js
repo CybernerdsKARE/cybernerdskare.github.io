@@ -205,6 +205,79 @@ app.get('/api/init-problems', async (req, res) => {
     }
 });
 
+// Register participant for CTF
+app.post('/api/ctf/register', async (req, res) => {
+    try {
+        const { 
+            name, 
+            email, 
+            phone, 
+            year, 
+            registrationNumber, 
+            stream 
+        } = req.body;
+
+        // Validate required fields
+        if (!name || !email || !phone || !year || !registrationNumber || !stream) {
+            throw new Error('All fields are required');
+        }
+
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            throw new Error('Invalid email format');
+        }
+
+        // Validate phone number (10 digits)
+        const phoneRegex = /^\d{10}$/;
+        if (!phoneRegex.test(phone)) {
+            throw new Error('Invalid phone number format');
+        }
+
+        // Check if email or registration number already exists
+        const { data: existingUser, error: checkError } = await supabase
+            .from('participants')
+            .select('email, registration_number')
+            .or(`email.eq.${email},registration_number.eq.${registrationNumber}`)
+            .single();
+
+        if (existingUser) {
+            if (existingUser.email === email) {
+                throw new Error('Email already registered');
+            }
+            if (existingUser.registration_number === registrationNumber) {
+                throw new Error('Registration number already registered');
+            }
+        }
+
+        // Register participant
+        const { data, error } = await supabase
+            .from('participants')
+            .insert([{
+                name,
+                email,
+                phone,
+                year,
+                registration_number: registrationNumber,
+                stream
+            }]);
+
+        if (error) throw error;
+
+        res.status(200).json({
+            success: true,
+            message: 'Registration successful',
+            data
+        });
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            message: 'Registration failed',
+            error: error.message
+        });
+    }
+});
+
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 }); 

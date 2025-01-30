@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Cyber Tech Sprint</title>
+    <link rel="stylesheet" href="../../CSS/style.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        .registration-content {
+            padding: 2rem;
+            margin-top: 5rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            color: #00ffff;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            color: #ffffff90;
+            font-size: 1.2rem;
+        }
+
+        .registration-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(19, 21, 29, 0.8);
+            border: 1px solid #00ffff40;
+            border-radius: 1rem;
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: #00ffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid #00ffff40;
+            border-radius: 0.5rem;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #00ffff;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(0, 255, 255, 0.2);
+            border: none;
+            border-radius: 0.5rem;
+            color: #00ffff;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: rgba(0, 255, 255, 0.3);
+        }
+
+        .error-message {
+            color: #ff4444;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .icon-circle {
+            aspect-ratio: 1;
+            width: 8rem;
+            border-radius: 50%;
+            background: rgba(0, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+        }
+
+        .icon-circle i {
+            color: #00ffff;
+            font-size: 4rem;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrixCanvas"></canvas>
+    <script src="../../JAVASCRIPT/matrix.js"></script>
+
+    <header class="header">
+        <a href="#" class="logo">{Cybernerds KARE}</a>
+        <nav class="navbar">
+            <a href="/" style="--i: 1">Home</a>
+            <a href="/cts" style="--i: 2">CTF Event</a>
+            <a href="/cts/register" style="--i: 3">Register Now</a>
+        </nav>
+    </header>
+
+    <section class="registration-content">
+        <div class="section-header">
+            <h1 class="section-title">Register for Round 1</h1>
+            <p class="section-subtitle">Join the Cyber Tech Sprint Challenge</p>
+        </div>
+
+        <form id="registrationForm" class="registration-form">
+            <div class="icon-circle">
+                <i class='bx bx-user-plus'></i>
+            </div>
+            
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+
+            <div class="form-group">
+                <label for="registrationNumber">Registration Number</label>
+                <input type="text" id="registrationNumber" name="registrationNumber" required>
+            </div>
+
+            <div class="form-group">
+                <label for="year">Year</label>
+                <select id="year" name="year" required>
+                    <option value="">Select Year</option>
+                    <option value="1">1st Year</option>
+                    <option value="2">2nd Year</option>
+                    <option value="3">3rd Year</option>
+                    <option value="4">4th Year</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="stream">Stream</label>
+                <select id="stream" name="stream" required>
+                    <option value="">Select Stream</option>
+                    <option value="CSE">Computer Science Engineering</option>
+                    <option value="IT">Information Technology</option>
+                    <option value="ECE">Electronics and Communication</option>
+                    <option value="EEE">Electrical and Electronics</option>
+                    <option value="MECH">Mechanical Engineering</option>
+                    <option value="CIVIL">Civil Engineering</option>
+                </select>
+            </div>
+
+            <button type="submit" class="submit-btn">Register Now</button>
+            <div id="errorMessage" class="error-message"></div>
+        </form>
+    </section>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const errorMessage = document.getElementById('errorMessage');
+            const submitBtn = document.querySelector('.submit-btn');
+            
+            try {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Registering...';
+                
+                const formData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    registrationNumber: document.getElementById('registrationNumber').value,
+                    year: document.getElementById('year').value,
+                    stream: document.getElementById('stream').value
+                };
+
+                const response = await fetch('http://144.126.254.154:8085/api/ctf/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    alert('Registration successful!');
+                    window.location.href = '/cts';
+                } else {
+                    throw new Error(data.error);
+                }
+            } catch (error) {
+                errorMessage.textContent = error.message;
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Register Now';
+            }
+        });
+    </script>
+</body>
+</html>
