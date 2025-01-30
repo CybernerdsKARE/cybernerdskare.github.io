@@ -14,7 +14,15 @@ const supabase = createClient(
     process.env.SUPABASE_ANON_KEY
 );
 
-app.use(cors());
+// Configure CORS with more specific options
+app.use(cors({
+    origin: '*', // Allow all origins
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allow these HTTP methods
+    allowedHeaders: '*', // Allow these headers
+    credentials: true, // Allow credentials
+    optionsSuccessStatus: 200 // Some legacy browsers (IE11) choke on 204
+}));
+
 app.use(express.json());
 
 // Get all problem statements
