@@ -100,6 +100,206 @@
             color: #00ffff;
             font-size: 4rem;
         }
+
+        /* Hamburger menu styles */
+        .menu-btn {
+            display: none;
+            color: #00ffff;
+            font-size: 1.8rem;
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        /* Mobile navbar styles */
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: block;
+            }
+
+            .navbar {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: rgba(19, 21, 29, 0.95);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2rem;
+                transition: 0.3s ease;
+                border-left: 1px solid rgba(0, 255, 255, 0.1);
+                z-index: 95;
+            }
+
+            .navbar.active {
+                right: 0;
+            }
+
+            .navbar a {
+                font-size: 1.2rem;
+                padding: 0.8rem 2rem;
+                width: 80%;
+                text-align: center;
+                border: 1px solid rgba(0, 255, 255, 0.1);
+                border-radius: 0.5rem;
+            }
+
+            .navbar a:hover {
+                background: rgba(0, 255, 255, 0.1);
+            }
+
+            /* Overlay when menu is open */
+            .menu-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                backdrop-filter: blur(3px);
+                z-index: 90;
+            }
+
+            .menu-overlay.active {
+                display: block;
+            }
+        }
+
+        /* Registration form responsive styles */
+        @media (max-width: 576px) {
+            .registration-content {
+                padding: 1rem;
+                margin-top: 4rem;
+            }
+
+            .registration-content h2 {
+                font-size: 1.5rem;
+                text-align: center;
+                margin-bottom: 2rem;
+            }
+
+            .form-group {
+                margin-bottom: 1.5rem;
+            }
+
+            .form-group input,
+            .form-group select {
+                padding: 0.7rem;
+                font-size: 0.9rem;
+                width: 100%;
+            }
+
+            .form-group label {
+                font-size: 0.9rem;
+                margin-bottom: 0.3rem;
+            }
+
+            .submit-btn {
+                padding: 0.8rem;
+                font-size: 1rem;
+                width: 100%;
+            }
+
+            .error-message {
+                font-size: 0.85rem;
+                margin-top: 0.3rem;
+            }
+        }
+
+        /* Landscape phones */
+        @media (min-width: 576px) and (max-width: 767px) {
+            .registration-content {
+                padding: 1.5rem;
+                max-width: 540px;
+                margin: 4rem auto;
+            }
+        }
+
+        /* Tablets */
+        @media (min-width: 768px) and (max-width: 991px) {
+            .registration-content {
+                max-width: 720px;
+                margin: 5rem auto;
+                padding: 2rem;
+            }
+        }
+
+        /* Small desktops */
+        @media (min-width: 992px) and (max-width: 1199px) {
+            .registration-content {
+                max-width: 960px;
+                margin: 5rem auto;
+            }
+        }
+
+        /* Large desktops */
+        @media (min-width: 1200px) {
+            .registration-content {
+                max-width: 1140px;
+                margin: 5rem auto;
+            }
+        }
+
+        /* Handle different aspect ratios */
+        @media (max-aspect-ratio: 16/9) {
+            .registration-content {
+                margin-top: max(4rem, 10vh);
+            }
+        }
+
+        /* Handle very small heights */
+        @media (max-height: 600px) {
+            .registration-content {
+                margin-top: 3.5rem;
+            }
+
+            .registration-content h2 {
+                margin-bottom: 1rem;
+            }
+        }
+
+        /* Safe area insets for notched phones */
+        @supports (padding: max(0px)) {
+            .registration-content {
+                padding-left: max(1rem, env(safe-area-inset-left));
+                padding-right: max(1rem, env(safe-area-inset-right));
+            }
+        }
+
+        /* High DPI Screens */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .registration-content {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+        }
+
+        /* Fix for floating labels on mobile */
+        @media (max-width: 768px) {
+            .form-group {
+                position: relative;
+            }
+
+            .form-group label {
+                position: absolute;
+                top: -0.5rem;
+                left: 0.5rem;
+                background: rgba(19, 21, 29, 0.9);
+                padding: 0 0.5rem;
+                font-size: 0.8rem;
+                color: #00ffff;
+            }
+
+            .form-group input,
+            .form-group select {
+                padding-top: 0.8rem;
+                background: rgba(0, 255, 255, 0.1);
+            }
+        }
     </style>
 </head>
 <body>
@@ -108,12 +308,17 @@
 
     <header class="header">
         <a href="#" class="logo">{Cybernerds KARE}</a>
+        <div class="menu-btn">
+            <i class='bx bx-menu'></i>
+        </div>
         <nav class="navbar">
             <a href="/" style="--i: 1">Home</a>
             <a href="/cts" style="--i: 2">CTF Event</a>
             <a href="/cts/register" style="--i: 3">Register Now</a>
         </nav>
     </header>
+
+    <div class="menu-overlay"></div>
 
     <section class="registration-content">
         <div class="section-header">
@@ -216,6 +421,43 @@
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Register Now';
             }
+        });
+
+        const menuBtn = document.querySelector('.menu-btn');
+        const navbar = document.querySelector('.navbar');
+        const overlay = document.querySelector('.menu-overlay');
+        const menuIcon = menuBtn.querySelector('i');
+
+        menuBtn.addEventListener('click', () => {
+            navbar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            // Toggle menu icon
+            if (navbar.classList.contains('active')) {
+                menuIcon.classList.remove('bx-menu');
+                menuIcon.classList.add('bx-x');
+            } else {
+                menuIcon.classList.remove('bx-x');
+                menuIcon.classList.add('bx-menu');
+            }
+        });
+
+        // Close menu when clicking overlay
+        overlay.addEventListener('click', () => {
+            navbar.classList.remove('active');
+            overlay.classList.remove('active');
+            menuIcon.classList.remove('bx-x');
+            menuIcon.classList.add('bx-menu');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.navbar a').forEach(link => {
+            link.addEventListener('click', () => {
+                navbar.classList.remove('active');
+                overlay.classList.remove('active');
+                menuIcon.classList.remove('bx-x');
+                menuIcon.classList.add('bx-menu');
+            });
         });
     </script>
 </body>
