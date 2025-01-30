@@ -300,6 +300,53 @@
                 background: rgba(0, 255, 255, 0.1);
             }
         }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            margin: 1.5rem 0;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-top: 0.2rem;
+            accent-color: #00ffff;
+            cursor: pointer;
+        }
+
+        .checkbox-label {
+            color: #ffffff90;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            cursor: pointer;
+        }
+
+        .checkbox-label a {
+            color: #00ffff;
+            text-decoration: none;
+        }
+
+        .checkbox-label a:hover {
+            text-decoration: underline;
+        }
+
+        /* Add to your mobile media queries */
+        @media (max-width: 576px) {
+            .checkbox-group {
+                gap: 0.6rem;
+            }
+
+            .checkbox-label {
+                font-size: 0.85rem;
+            }
+
+            .checkbox-group input[type="checkbox"] {
+                width: 18px;
+                height: 18px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -375,6 +422,13 @@
                 </select>
             </div>
 
+            <div class="form-group checkbox-group">
+                <input type="checkbox" id="whatsappVerify" name="whatsappVerify" required>
+                <label for="whatsappVerify" class="checkbox-label">
+                    I confirm that I have joined the <a href="https://chat.whatsapp.com/GiqykegzNIsGgUhZBhL6cP" target="_blank">WhatsApp group</a>
+                </label>
+            </div>
+
             <button type="submit" class="submit-btn">Register Now</button>
             <div id="errorMessage" class="error-message"></div>
         </form>
@@ -385,6 +439,12 @@
             e.preventDefault();
             const errorMessage = document.getElementById('errorMessage');
             const submitBtn = document.querySelector('.submit-btn');
+            const whatsappVerify = document.getElementById('whatsappVerify');
+            
+            if (!whatsappVerify.checked) {
+                errorMessage.textContent = 'Please join the WhatsApp group before registering';
+                return;
+            }
             
             try {
                 submitBtn.disabled = true;
