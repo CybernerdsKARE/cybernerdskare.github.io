@@ -101,6 +101,262 @@
             color: #ffffff90;
             font-size: 1.2rem;
         }
+
+        /* Base mobile styles - for portrait phones */
+        @media (max-width: 576px) {
+            .content-section {
+                padding: 1rem;
+                margin-top: 4rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .section-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .problem-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 0.5rem;
+            }
+
+            .problem-card {
+                padding: 1rem;
+            }
+
+            .problem-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .icon-circle {
+                width: 3rem;
+                margin: 0 auto 1rem;
+            }
+
+            .icon-circle i {
+                font-size: 1.5rem;
+            }
+
+            .problem-title {
+                font-size: 1.1rem;
+            }
+
+            .problem-description {
+                font-size: 0.9rem;
+                line-height: 1.4;
+            }
+
+            .teams-count {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Landscape phones */
+        @media (min-width: 576px) and (max-width: 767px) {
+            .problem-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .content-section {
+                padding: 1.5rem;
+            }
+
+            .icon-circle {
+                width: 3.5rem;
+            }
+        }
+
+        /* Tablets */
+        @media (min-width: 768px) and (max-width: 991px) {
+            .problem-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+
+            .content-section {
+                padding: 2rem;
+            }
+
+            .problem-card {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Small desktops */
+        @media (min-width: 992px) and (max-width: 1199px) {
+            .problem-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.8rem;
+                max-width: 960px;
+                margin: 0 auto;
+            }
+        }
+
+        /* Large desktops */
+        @media (min-width: 1200px) {
+            .problem-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2rem;
+                max-width: 1140px;
+                margin: 0 auto;
+            }
+        }
+
+        /* Handle different aspect ratios */
+        @media (max-aspect-ratio: 16/9) {
+            .content-section {
+                margin-top: max(4rem, 10vh);
+            }
+        }
+
+        /* Handle very small heights */
+        @media (max-height: 600px) {
+            .content-section {
+                margin-top: 3.5rem;
+            }
+
+            .section-header {
+                margin-bottom: 1.5rem;
+            }
+
+            .problem-card {
+                margin-bottom: 1rem;
+            }
+        }
+
+        /* High DPI Screens */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .problem-description {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+        }
+
+        /* Safe area insets for notched phones */
+        @supports (padding: max(0px)) {
+            .content-section {
+                padding-left: max(1rem, env(safe-area-inset-left));
+                padding-right: max(1rem, env(safe-area-inset-right));
+            }
+        }
+
+        /* Hover effects only for devices that support hover */
+        @media (hover: hover) {
+            .problem-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 4px 20px rgba(0, 255, 255, 0.2);
+            }
+        }
+
+        /* Reduced motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            .problem-card {
+                transition: none;
+            }
+        }
+
+        /* Dark mode preferences */
+        @media (prefers-color-scheme: dark) {
+            .problem-card {
+                background: rgba(19, 21, 29, 0.9);
+            }
+        }
+
+        /* Ultra-wide screens */
+        @media (min-width: 1400px) {
+            .problem-grid {
+                max-width: 1320px;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .problem-grid {
+                display: block;
+            }
+
+            .problem-card {
+                break-inside: avoid;
+                margin-bottom: 1rem;
+            }
+
+            .header, .menu-btn, .menu-overlay {
+                display: none;
+            }
+        }
+
+        /* Hamburger menu styles */
+        .menu-btn {
+            display: none;
+            color: #00ffff;
+            font-size: 1.8rem;
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        /* Mobile navbar styles */
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: block;
+            }
+
+            .navbar {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: rgba(19, 21, 29, 0.95);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2rem;
+                transition: 0.3s ease;
+                border-left: 1px solid rgba(0, 255, 255, 0.1);
+                z-index: 95;
+            }
+
+            .navbar.active {
+                right: 0;
+            }
+
+            .navbar a {
+                font-size: 1.2rem;
+                padding: 0.8rem 2rem;
+                width: 80%;
+                text-align: center;
+                border: 1px solid rgba(0, 255, 255, 0.1);
+                border-radius: 0.5rem;
+            }
+
+            .navbar a:hover {
+                background: rgba(0, 255, 255, 0.1);
+            }
+
+            /* Overlay when menu is open */
+            .menu-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                backdrop-filter: blur(3px);
+                z-index: 90;
+            }
+
+            .menu-overlay.active {
+                display: block;
+            }
+        }
     </style>
 </head>
 <body>
@@ -109,12 +365,17 @@
 
     <header class="header">
         <a href="#" class="logo">{Cybernerds KARE}</a>
+        <div class="menu-btn">
+            <i class='bx bx-menu'></i>
+        </div>
         <nav class="navbar">
             <a href="/" style="--i: 1">Home</a>
             <a href="/game-hacking/problem-statements" style="--i: 2">Problem Statements</a>
             <a href="/game-hacking/register" style="--i: 3">Register Now</a>
         </nav>
     </header>
+
+    <div class="menu-overlay"></div>
 
     <section class="content-section">
         <div class="section-header">
@@ -187,6 +448,43 @@
 
         // Load problems when the page loads
         document.addEventListener('DOMContentLoaded', fetchProblems);
+
+        const menuBtn = document.querySelector('.menu-btn');
+        const navbar = document.querySelector('.navbar');
+        const overlay = document.querySelector('.menu-overlay');
+        const menuIcon = menuBtn.querySelector('i');
+
+        menuBtn.addEventListener('click', () => {
+            navbar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            // Toggle menu icon
+            if (navbar.classList.contains('active')) {
+                menuIcon.classList.remove('bx-menu');
+                menuIcon.classList.add('bx-x');
+            } else {
+                menuIcon.classList.remove('bx-x');
+                menuIcon.classList.add('bx-menu');
+            }
+        });
+
+        // Close menu when clicking overlay
+        overlay.addEventListener('click', () => {
+            navbar.classList.remove('active');
+            overlay.classList.remove('active');
+            menuIcon.classList.remove('bx-x');
+            menuIcon.classList.add('bx-menu');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.navbar a').forEach(link => {
+            link.addEventListener('click', () => {
+                navbar.classList.remove('active');
+                overlay.classList.remove('active');
+                menuIcon.classList.remove('bx-x');
+                menuIcon.classList.add('bx-menu');
+            });
+        });
     </script>
 </body>
 </html> 
