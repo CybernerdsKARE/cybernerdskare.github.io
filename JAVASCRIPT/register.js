@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Check registration availability
     try {
-        const response = await fetch('https://144.126.254.154/api/registration-status');
+        const response = await fetch('https://cybernerds.vercel.app/api/registration-status');
         const data = await response.json();
         
         if (!data.isOpen) {
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Load problem statements
     try {
-        const response = await fetch('https://144.126.254.154/api/problems');
+        const response = await fetch('https://cybernerds.vercel.app/api/problems');
         const { data: problems } = await response.json();
         
         problems.forEach(problem => {
@@ -137,7 +137,7 @@ async function handleSubmit(e) {
     }
 
     try {
-        const response = await fetch('https://144.126.254.154/api/register', {
+        const response = await fetch('https://cybernerds.vercel.app/api/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
