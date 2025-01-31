@@ -16,6 +16,202 @@
       rel="stylesheet"
     />
     <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <style>
+        /* Base styles */
+        .home-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .institution-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 2rem;
+            text-align: center;
+            padding: 0;
+        }
+
+        .kare-logo {
+            height: 100px;
+            margin-bottom: 1rem;
+        }
+
+        .institution-text p {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0.3rem 0;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            white-space: nowrap;
+        }
+
+        /* Large screens (1200px and up) */
+        @media (min-width: 1200px) {
+            .institution-header {
+                padding-left: 55vh;
+            }
+        }
+
+        /* Medium screens (992px to 1199px) */
+        @media (min-width: 992px) and (max-width: 1199px) {
+            .institution-header {
+                padding-left: 40vh;
+            }
+            
+            .home-img {
+                scale: 0.9;
+            }
+        }
+
+        /* Small screens (768px to 991px) */
+        @media (min-width: 768px) and (max-width: 991px) {
+            .institution-header {
+                padding-left: 20vh;
+            }
+
+            .home-img {
+                scale: 0.8;
+            }
+
+            .home-content h1 {
+                font-size: 3.5rem;
+            }
+
+            .home-content h3 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Tablets (576px to 767px) */
+        @media (min-width: 576px) and (max-width: 767px) {
+            .institution-header {
+                padding-left: 0;
+            }
+
+            .kare-logo {
+                height: 80px;
+            }
+
+            .institution-text p {
+                font-size: 16px;
+            }
+
+            .home-img {
+                scale: 0.7;
+            }
+
+            .home-content h1 {
+                font-size: 3rem;
+            }
+
+            .home-content h3 {
+                font-size: 1.5rem;
+            }
+
+            .home-content p {
+                font-size: 0.9rem;
+            }
+
+            .home-sci a {
+                width: 35px;
+                height: 35px;
+            }
+        }
+
+        /* Mobile phones (575px and below) */
+        @media (max-width: 575px) {
+            .institution-header {
+                padding-left: 0;
+            }
+
+            .kare-logo {
+                height: 60px;
+            }
+
+            .institution-text p {
+                font-size: 14px;
+            }
+
+            .home-img {
+                scale: 0.6;
+            }
+
+            .home-content {
+                padding: 1rem;
+            }
+
+            .home-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .home-content h3 {
+                font-size: 1.2rem;
+            }
+
+            .home-content p {
+                font-size: 0.85rem;
+                text-align: center;
+            }
+
+            .home-sci {
+                justify-content: center;
+            }
+
+            .home-sci a {
+                width: 30px;
+                height: 30px;
+                margin: 0 0.5rem;
+            }
+        }
+
+        /* Very small phones */
+        @media (max-width: 360px) {
+            .institution-text p {
+                font-size: 12px;
+            }
+
+            .home-content h1 {
+                font-size: 2rem;
+            }
+
+            .home-img {
+                scale: 0.5;
+            }
+        }
+
+        /* Handle different aspect ratios */
+        @media (max-aspect-ratio: 16/9) {
+            .home {
+                min-height: 100vh;
+                padding: 2rem 0;
+            }
+        }
+
+        /* Handle ultra-wide screens */
+        @media (min-width: 1400px) {
+            .home-content {
+                max-width: 1320px;
+            }
+        }
+
+        /* High DPI Screens */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .home-content {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+        }
+
+        /* Safe area insets for notched phones */
+        @supports (padding: max(0px)) {
+            .home-content {
+                padding-left: max(1rem, env(safe-area-inset-left));
+                padding-right: max(1rem, env(safe-area-inset-right));
+            }
+        }
+    </style>
   </head>
   <body>
     <canvas id="matrixCanvas"></canvas>
@@ -108,46 +304,5 @@
         </div>
       </div>
     </section>
-
-    <style>
-        .institution-header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        .kare-logo {
-            height: 100px;
-            margin-bottom: 1rem;
-        }
-
-        .institution-text p {
-            font-size: 20px;
-            font-weight: bold;
-            margin: 0.3rem 0;
-            color: #fff;
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-            white-space: nowrap;
-        }
-
-        /* Mobile responsiveness */
-        @media (max-width: 768px) {
-            .kare-logo {
-                height: 80px;
-            }
-
-            .institution-text p {
-                font-size: 16px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .institution-text p {
-                font-size: 14px;
-            }
-        }
-    </style>
   </body>
 </html>
