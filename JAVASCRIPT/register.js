@@ -86,6 +86,10 @@ function addTeamMemberSection(memberNum) {
                 <option value="CSE">CSE</option>
                 <option value="IT">IT</option>
                 <option value="CS/IT">CS/IT</option>
+                <option value="ECE">ECE</option>
+                <option value="EEE">EEE</option>
+                <option value="MECH">MECH</option>
+                <option value="CIVIL">CIVIL</option>
             </select>
         </div>
         <div class="form-group">
