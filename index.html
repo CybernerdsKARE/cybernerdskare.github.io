@@ -59,20 +59,12 @@
             .institution-header {
                 padding-left: 40vh;
             }
-            
-            .home-img {
-                scale: 0.9;
-            }
         }
 
         /* Small screens (768px to 991px) */
         @media (min-width: 768px) and (max-width: 991px) {
             .institution-header {
                 padding-left: 20vh;
-            }
-
-            .home-img {
-                scale: 0.8;
             }
 
             .home-content h1 {
@@ -98,10 +90,6 @@
                 font-size: 16px;
             }
 
-            .home-img {
-                scale: 0.7;
-            }
-
             .home-content h1 {
                 font-size: 3rem;
             }
@@ -117,6 +105,10 @@
             .home-sci a {
                 width: 35px;
                 height: 35px;
+            }
+
+            .home-img {
+                display: none; /* Hide image on tablet and below */
             }
         }
 
@@ -134,12 +126,9 @@
                 font-size: 14px;
             }
 
-            .home-img {
-                scale: 0.6;
-            }
-
             .home-content {
                 padding: 1rem;
+                text-align: center;
             }
 
             .home-content h1 {
@@ -153,6 +142,7 @@
             .home-content p {
                 font-size: 0.85rem;
                 text-align: center;
+                padding: 0 1rem;
             }
 
             .home-sci {
@@ -164,6 +154,16 @@
                 height: 30px;
                 margin: 0 0.5rem;
             }
+
+            .home-img {
+                display: none; /* Hide image on mobile */
+            }
+
+            /* Center align the institution header on mobile */
+            .institution-header {
+                margin: 1rem auto;
+                padding: 0 1rem;
+            }
         }
 
         /* Very small phones */
@@ -174,10 +174,6 @@
 
             .home-content h1 {
                 font-size: 2rem;
-            }
-
-            .home-img {
-                scale: 0.5;
             }
         }
 
@@ -211,6 +207,85 @@
                 padding-right: max(1rem, env(safe-area-inset-right));
             }
         }
+
+        /* Update hamburger menu styles */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1000;
+            width: 30px;
+            height: 25px;
+            position: relative;
+            margin-right: 10px;
+        }
+
+        .hamburger .bar {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: #fff;
+            position: absolute;
+            left: 0;
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Position the bars vertically */
+        .hamburger .bar:nth-child(1) {
+            top: 0;
+        }
+
+        .hamburger .bar:nth-child(2) {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .hamburger .bar:nth-child(3) {
+            bottom: 0;
+        }
+
+        /* Animation for active state */
+        .hamburger.active .bar:nth-child(1) {
+            transform: translateY(11px) rotate(45deg);
+        }
+
+        .hamburger.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active .bar:nth-child(3) {
+            transform: translateY(-11px) rotate(-45deg);
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .navbar {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                gap: 0;
+                flex-direction: column;
+                background-color: rgba(0, 0, 0, 0.95);
+                backdrop-filter: blur(10px);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                padding: 20px 0;
+                height: calc(100vh - 70px);
+            }
+
+            .navbar.active {
+                left: 0;
+            }
+
+            .navbar a {
+                margin: 16px 0;
+                font-size: 1.2rem;
+            }
+        }
     </style>
   </head>
   <body>
@@ -219,25 +294,31 @@
     <script src="/JAVASCRIPT/matrix.js"></script>
 
     <header class="header">
-      <a href="#" class="logo">{Cybernerds KARE} </a>
+      <a href="#" class="logo">{Cybernerds KARE}</a>
+
+      <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+      </div>
 
       <nav class="navbar">
-        <a href="#home" style="--i: 1" class="active">Home</a>
-        <a href="#about" style="--i: 2">About</a>
-        <a href="/game-hacking" style="--i: 3">Game Hacking</a>
-        <a href="/projects" style="--i: 4">Projects</a>
-        <a href="/cts" style="--i: 5">CTS</a>
-        <a href="/cts/round-1" style="--i: 6">CTS Round 1</a>
+          <a href="#home" style="--i: 1" class="active">Home</a>
+          <a href="#about" style="--i: 2">About</a>
+          <a href="/game-hacking" style="--i: 3">Game Hacking</a>
+          <a href="/projects" style="--i: 4">Projects</a>
+          <a href="/cts" style="--i: 5">CTS</a>
+          <a href="/cts/round-1" style="--i: 6">CTS Round 1</a>
       </nav>
     </header>
 
     <section id="home" class="home">
       <div class="home-content" data-scroll data-scroll-speed="-5">
-        <div style="padding-left: 55vh; text-align: center;" class="institution-header">
+        <div class="institution-header">
             <img src="https://www.kalasalingam.ac.in/wp-content/uploads/2022/02/Logo.png" alt="Logo" class="kare-logo">
-            <div style="text-align: center;" class="institution-text">
-                <p style="font-size: 20px; font-weight: bold; text-align: center;">School of Computing</p>
-                <p style="font-size: 20px; font-weight: bold; text-align: center;">Department of Computer Science and Engineering</p>
+            <div class="institution-text">
+                <p>School of Computing</p>
+                <p>Department of Computer Science and Engineering</p>
             </div>
         </div>
         <h3 class="mu">Hello KARE! This is the official</h3>
@@ -305,5 +386,21 @@
         </div>
       </div>
     </section>
+
+    <script>
+        const hamburger = document.querySelector(".hamburger");
+        const navbar = document.querySelector(".navbar");
+
+        hamburger.addEventListener("click", () => {
+            hamburger.classList.toggle("active");
+            navbar.classList.toggle("active");
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll(".navbar a").forEach(n => n.addEventListener("click", () => {
+            hamburger.classList.remove("active");
+            navbar.classList.remove("active");
+        }));
+    </script>
   </body>
 </html>
