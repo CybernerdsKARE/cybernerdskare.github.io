@@ -74,7 +74,6 @@
                 </div>
 
                 <!-- Team Members -->
-<!-- Inside the form, after the team leader section -->
                 <div class="team-members-container">
                     <h3>Team Members</h3>
                     <div class="team-section" id="teamMembers">
@@ -82,7 +81,10 @@
                     </div>
                 </div>
 
-                <button type="submit" class="submit-btn">Register Team</button>
+                <button type="submit" class="submit-btn">
+                    <span class="btn-text">Register Team</span>
+                    <div class="spinner"></div>
+                </button>
             </form>
         </div>
     </section>
@@ -258,6 +260,42 @@
                 padding-right: max(1rem, env(safe-area-inset-right));
             }
         }
+
+        /* Add these new styles before the existing styles */
+        .submit-btn {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .submit-btn.loading .spinner {
+            display: block;
+        }
+
+        .submit-btn.loading .btn-text {
+            margin-right: 10px;
+        }
     </style>
 
     <script>
@@ -296,6 +334,24 @@
                 menuIcon.classList.remove('bx-x');
                 menuIcon.classList.add('bx-menu');
             });
+        });
+
+        // Add this new code after the existing menu script
+        const form = document.getElementById('registrationForm');
+        const submitBtn = form.querySelector('.submit-btn');
+        const btnText = submitBtn.querySelector('.btn-text');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.classList.add('loading');
+            btnText.textContent = 'Registering...';
+            
+            // Your existing form submission logic here
+            // When the submission is complete, you can reset the button:
+            // submitBtn.disabled = false;
+            // submitBtn.classList.remove('loading');
+            // btnText.textContent = 'Register Team';
         });
     </script>
 </body>

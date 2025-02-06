@@ -14,14 +14,28 @@ const supabase = createClient(
     process.env.SUPABASE_ANON_KEY
 );
 
-// Configure CORS with more specific options
-app.use(cors({
-    origin: '*', // Allow all origins
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allow these HTTP methods
-    allowedHeaders: '*', // Allow these headers
-    credentials: true, // Allow credentials
-    optionsSuccessStatus: 200 // Some legacy browsers (IE11) choke on 204
-}));
+// CORS configuration for Vercel
+app.use((req, res, next) => {
+    // Allow specific origins
+    const allowedOrigins = ['https://cybernerdskare.github.io', 'http://localhost:3000', 'http://127.0.0.1:5500'];
+    const origin = req.headers.origin;
+    
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
+
+    // Required headers for preflight
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+
+    // Handle preflight
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end();
+    }
+
+    next();
+});
 
 app.use(express.json());
 
@@ -71,58 +85,95 @@ app.get('/api/registration-status', async (req, res) => {
 
 // Register a team
 app.post('/api/register', async (req, res) => {
-    const client = await supabase.rest.connection();
-    
     try {
-        await client.transaction(async (tx) => {
-            // Check if registration is still open
-            const { count: teamCount } = await tx
-                .from('team_registrations')
-                .select('*', { count: 'exact' });
+        const { teamData, problemStatementId } = req.body;
+        
+        if (!teamData || !problemStatementId) {
+            return res.status(400).json({
+                success: false,
+                message: 'Missing required data'
+            });
+        }
 
-            if (teamCount >= MAX_TEAMS) {
-                throw new Error('Registration closed: Maximum teams reached');
-            }
+        // Check if registration is still open
+        const { count: teamCount, error: countError } = await supabase
+            .from('team_registrations')
+            .select('*', { count: 'exact' });
 
-            const { teamData, problemStatementId } = req.body;
+        if (countError) {
+            throw new Error('Error checking registration status');
+        }
 
-            // Check if problem statement is available
-            const { data: problem, error: problemError } = await tx
+        if (teamCount >= MAX_TEAMS) {
+            return res.status(400).json({
+                success: false,
+                message: 'Registration closed: Maximum teams reached'
+            });
+        }
+
+        // Check if problem statement is available
+        const { data: problem, error: problemError } = await supabase
+            .from('problem_statements')
+            .select('teams_assigned')
+            .eq('id', problemStatementId)
+            .single();
+
+        if (problemError) {
+            return res.status(400).json({
+                success: false,
+                message: 'Error checking problem statement'
+            });
+        }
+
+        if (problem.teams_assigned >= 3) {
+            return res.status(400).json({
+                success: false,
+                message: 'Problem statement no longer available'
+            });
+        }
+
+        // Update problem statement count
+        const { error: updateError } = await supabase
+            .from('problem_statements')
+            .update({ teams_assigned: problem.teams_assigned + 1 })
+            .eq('id', problemStatementId);
+
+        if (updateError) {
+            return res.status(500).json({
+                success: false,
+                message: 'Error updating problem statement'
+            });
+        }
+
+        // Register team
+        const { data, error: registrationError } = await supabase
+            .from('team_registrations')
+            .insert([{ ...teamData, problem_statement_id: problemStatementId }]);
+
+        if (registrationError) {
+            // Rollback the problem statement count if team registration fails
+            await supabase
                 .from('problem_statements')
-                .select('teams_assigned')
-                .eq('id', problemStatementId)
-                .single();
-
-            if (problemError) throw problemError;
-            if (problem.teams_assigned >= 3) {
-                throw new Error('Problem statement no longer available');
-            }
-
-            // Update problem statement count
-            const { error: updateError } = await tx
-                .from('problem_statements')
-                .update({ teams_assigned: problem.teams_assigned + 1 })
+                .update({ teams_assigned: problem.teams_assigned })
                 .eq('id', problemStatementId);
 
-            if (updateError) throw updateError;
-
-            // Register team
-            const { data, error } = await tx
-                .from('team_registrations')
-                .insert([{ ...teamData, problem_statement_id: problemStatementId }]);
-
-            if (error) throw error;
-
-            res.status(200).json({
-                success: true,
-                message: 'Registration successful',
-                data
+            return res.status(500).json({
+                success: false,
+                message: 'Error registering team'
             });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: 'Registration successful',
+            data
         });
+
     } catch (error) {
-        res.status(500).json({
+        console.error('Registration error:', error);
+        return res.status(500).json({
             success: false,
-            message: 'Registration failed',
+            message: 'Internal server error',
             error: error.message
         });
     }
@@ -227,35 +278,10 @@ app.post('/api/ctf/register', async (req, res) => {
 
         // Validate required fields
         if (!name || !email || !phone || !year || !registrationNumber || !stream) {
-            throw new Error('All fields are required');
-        }
-
-        // Validate email format
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            throw new Error('Invalid email format');
-        }
-
-        // Validate phone number (10 digits)
-        const phoneRegex = /^\d{10}$/;
-        if (!phoneRegex.test(phone)) {
-            throw new Error('Invalid phone number format');
-        }
-
-        // Check if email or registration number already exists
-        const { data: existingUser, error: checkError } = await supabase
-            .from('participants')
-            .select('email, registration_number')
-            .or(`email.eq.${email},registration_number.eq.${registrationNumber}`)
-            .single();
-
-        if (existingUser) {
-            if (existingUser.email === email) {
-                throw new Error('Email already registered');
-            }
-            if (existingUser.registration_number === registrationNumber) {
-                throw new Error('Registration number already registered');
-            }
+            return res.status(400).json({
+                success: false,
+                message: 'All fields are required'
+            });
         }
 
         // Register participant
@@ -270,17 +296,79 @@ app.post('/api/ctf/register', async (req, res) => {
                 stream
             }]);
 
-        if (error) throw error;
+        if (error) {
+            return res.status(400).json({
+                success: false,
+                message: error.message
+            });
+        }
 
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             message: 'Registration successful',
             data
         });
+
     } catch (error) {
-        res.status(400).json({
+        console.error('CTF Registration error:', error);
+        return res.status(500).json({
             success: false,
-            message: 'Registration failed',
+            message: 'Internal server error',
+            error: error.message
+        });
+    }
+});
+
+// Get timer and results status
+app.get('/api/results-status', async (req, res) => {
+    try {
+        // Get current time in IST
+        const istTime = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
+        const currentTime = new Date(istTime);
+        
+        // Set target time to 11 AM IST today
+        const targetTime = new Date(istTime);
+        targetTime.setHours(11, 0, 0, 0);
+        
+        // If current time is past 11 AM, set target to next day
+        if (currentTime > targetTime) {
+            targetTime.setDate(targetTime.getDate() + 1);
+        }
+        
+        // Calculate remaining time in milliseconds
+        const remainingTime = targetTime - currentTime;
+        
+        // Check if results should be shown
+        const showResults = currentTime >= targetTime;
+        
+        // If showing results, fetch them from database
+        let results = null;
+        if (showResults) {
+            results = [
+                {rank: 1, user: "v3n0m", score: 175},
+                {rank: 2, user: "Guru Prakash", score: 100},
+                {rank: 3, user: "99220041056", score: 100},
+                {rank: 4, user: "99220040553", score: 100}, 
+                {rank: 5, user: "99220040204", score: 100},
+                {rank: 6, user: "Jujaru sasi kiran", score: 100},
+                {rank: 7, user: "maruthi", score: 100},
+                {rank: 8, user: "99220041051", score: 100},
+                {rank: 9, user: "99220041417", score: 100},
+                {rank: 10, user: "THARSHAN R S", score: 100}
+            ];
+        }
+        
+        res.status(200).json({
+            success: true,
+            currentTime: currentTime.toISOString(),
+            targetTime: targetTime.toISOString(),
+            remainingTime,
+            showResults,
+            results
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
             error: error.message
         });
     }
