@@ -210,30 +210,9 @@
 
     <section class="results-content">
         <h1 class="section-title">Round 1 Results</h1>
-        <p class="section-subtitle">Results will be revealed at 11:00 AM IST</p>
+        <p class="section-subtitle">CTF Round 1 Results</p>
 
-        <div class="timer-container">
-            <div class="timer">
-                <div class="timer-block">
-                    <div class="timer-value" id="days">00</div>
-                    <div class="timer-label">Days</div>
-                </div>
-                <div class="timer-block">
-                    <div class="timer-value" id="hours">00</div>
-                    <div class="timer-label">Hours</div>
-                </div>
-                <div class="timer-block">
-                    <div class="timer-value" id="minutes">00</div>
-                    <div class="timer-label">Minutes</div>
-                </div>
-                <div class="timer-block">
-                    <div class="timer-value" id="seconds">00</div>
-                    <div class="timer-label">Seconds</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="results-table" id="resultsTable">
+        <div class="results-table visible">
             <table>
                 <thead>
                     <tr>
@@ -243,94 +222,63 @@
                     </tr>
                 </thead>
                 <tbody id="resultsBody">
-                    <!-- Results will be populated here -->
+                    <tr>
+                        <td>1</td>
+                        <td>v3n0m</td>
+                        <td>175</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Guru Prakash</td>
+                        <td>100</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>99220041056</td>
+                        <td>100</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>99220040553</td>
+                        <td>100</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>99220040204</td>
+                        <td>100</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Jujaru sasi kiran</td>
+                        <td>100</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>maruthi</td>
+                        <td>100</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>99220041051</td>
+                        <td>100</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>99220041417</td>
+                        <td>100</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>THARSHAN R S</td>
+                        <td>100</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
     </section>
 
     <script>
-        let remainingTimeFromServer = null;
-        let startTime = null;
-        let showingResults = false;
-
-        // Timer and Results functionality
-        async function updateTimerAndResults() {
-            // Fetch from server only if:
-            // 1. First time (remainingTimeFromServer is null)
-            // 2. Timer has reached zero and results aren't showing
-            if (remainingTimeFromServer === null || 
-                (remainingTimeFromServer <= 0 && !showingResults)) {
-                
-                try {
-                    const response = await fetch('https://cybernerds.vercel.app/api/results-status');
-                    const data = await response.json();
-
-                    if (!data.success) throw new Error(data.error);
-
-                    if (data.showResults && !showingResults) {
-                        // Show results
-                        document.querySelector('.timer-container').style.display = 'none';
-                        document.querySelector('.section-subtitle').textContent = 'Round 1 Results';
-                        
-                        const resultsTable = document.getElementById('resultsTable');
-                        const resultsBody = document.getElementById('resultsBody');
-                        resultsBody.innerHTML = '';
-
-                        data.results.forEach(result => {
-                            const row = document.createElement('tr');
-                            row.innerHTML = `
-                                <td>${result.rank}</td>
-                                <td>${result.user}</td>
-                                <td>${result.score}</td>
-                            `;
-                            resultsBody.appendChild(row);
-                        });
-
-                        resultsTable.classList.add('visible');
-                        showingResults = true;
-                        return; // Stop updating timer once results are shown
-                    }
-
-                    // Store initial values
-                    remainingTimeFromServer = data.remainingTime;
-                    startTime = Date.now();
-                } catch (error) {
-                    console.error('Error updating timer:', error);
-                    return;
-                }
-            }
-
-            // Update timer display
-            if (!showingResults && remainingTimeFromServer !== null) {
-                // Calculate current remaining time
-                const elapsedTime = Date.now() - startTime;
-                const currentRemaining = remainingTimeFromServer - elapsedTime;
-
-                if (currentRemaining <= 0) {
-                    // Timer reached zero, fetch results
-                    remainingTimeFromServer = 0;
-                    updateTimerAndResults();
-                    return;
-                }
-
-                const days = Math.floor(currentRemaining / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((currentRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((currentRemaining % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((currentRemaining % (1000 * 60)) / 1000);
-
-                document.getElementById('days').textContent = String(days).padStart(2, '0');
-                document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-                document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-                document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
-            }
-        }
-
-        // Update timer immediately and then every second
-        updateTimerAndResults();
-        setInterval(updateTimerAndResults, 1000);
-
-        // Menu functionality
+        // Only keep the menu functionality
         const menuBtn = document.querySelector('.menu-btn');
         const navbar = document.querySelector('.navbar');
         const overlay = document.querySelector('.menu-overlay');
