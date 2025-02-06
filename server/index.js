@@ -374,6 +374,52 @@ app.get('/api/results-status', async (req, res) => {
     }
 });
 
+// Get all registered teams
+app.get('/api/teams', async (req, res) => {
+    try {
+        const { data: teams, error } = await supabase
+            .from('team_registrations')
+            .select(`
+                *,
+                problem_statements (
+                    title
+                )
+            `)
+            .order('created_at', { ascending: false });
+
+        if (error) throw error;
+
+        // Format the data to include only necessary information
+        const formattedTeams = teams.map(team => {
+            // Format members array
+            const formattedMembers = team.members.map(member => ({
+                name: member.name,
+                regNo: member.regNo
+            }));
+
+            return {
+                teamName: `Team ${team.leader.name}`, // Creating a team name from leader's name
+                teamLead: {
+                    name: team.leader.name,
+                    regNo: team.leader.regNo
+                },
+                members: formattedMembers,
+                problemStatement: team.problem_statements.title
+            };
+        });
+
+        res.status(200).json({
+            success: true,
+            data: formattedTeams
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+});
+
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 }); 
