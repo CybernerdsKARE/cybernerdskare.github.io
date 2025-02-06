@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Round 1 - Cyber Tech Sprint</title>
+    <link rel="stylesheet" href="../../CSS/style.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        .round-content {
+            padding: 2rem;
+            margin-top: 5rem;
+            text-align: center;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            background: rgba(19, 21, 29, 0.8);
+            border: 1px solid #00ffff40;
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            color: #00ffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #ffffff90;
+            font-size: 1.1rem;
+        }
+
+        .description {
+            background: rgba(19, 21, 29, 0.8);
+            border: 1px solid #00ffff40;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .description h3 {
+            color: #00ffff;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .description p {
+            color: #ffffff90;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 0.5rem;
+            color: #00ffff;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: rgba(0, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: rgba(0, 255, 255, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .round-content {
+                padding: 1rem;
+            }
+
+            .stat-value {
+                font-size: 2rem;
+            }
+
+            .stat-label {
+                font-size: 1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrixCanvas"></canvas>
+    <script src="../../JAVASCRIPT/matrix.js"></script>
+
+    <header class="header">
+        <a href="/" class="logo">{Cybernerds KARE}</a>
+        <div class="menu-btn">
+            <i class='bx bx-menu'></i>
+        </div>
+        <nav class="navbar">
+            <a href="/" style="--i: 1">Home</a>
+            <a href="/cts" style="--i: 2">CTF Event</a>
+        </nav>
+    </header>
+
+    <div class="menu-overlay"></div>
+
+    <section class="round-content">
+        <h1 class="section-title">Round 1: Cyber Tech Sprint</h1>
+        <p class="section-subtitle">The Ultimate Cybersecurity Challenge</p>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">4</div>
+                <div class="stat-label">Challenging Questions</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">130+</div>
+                <div class="stat-label">Registrations</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">75+</div>
+                <div class="stat-label">Active Participants</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">1hr</div>
+                <div class="stat-label">Time Duration</div>
+            </div>
+        </div>
+
+        <div class="description">
+            <h3>About Round 1</h3>
+            <p>Round 1 of the Cyber Tech Sprint featured four intense cybersecurity challenges that tested participants' skills in various domains. With over 130 registrations and 75+ active participants, the competition was fierce and engaging.</p>
+            <p>Participants had one hour to solve challenging problems that covered different aspects of cybersecurity, including cryptography, web security, and more.</p>
+        </div>
+
+        <div class="cta-buttons">
+            <a href="/cts" class="btn">Back to Event</a>
+            <a href="/cts/round-1/results" class="btn btn-primary">View Results</a>
+        </div>
+    </section>
+
+    <script>
+        // Menu functionality
+        const menuBtn = document.querySelector('.menu-btn');
+        const navbar = document.querySelector('.navbar');
+        const overlay = document.querySelector('.menu-overlay');
+        const menuIcon = menuBtn.querySelector('i');
+
+        menuBtn.addEventListener('click', () => {
+            navbar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            if (navbar.classList.contains('active')) {
+                menuIcon.classList.remove('bx-menu');
+                menuIcon.classList.add('bx-x');
+            } else {
+                menuIcon.classList.remove('bx-x');
+                menuIcon.classList.add('bx-menu');
+            }
+        });
+
+        overlay.addEventListener('click', () => {
+            navbar.classList.remove('active');
+            overlay.classList.remove('active');
+            menuIcon.classList.remove('bx-x');
+            menuIcon.classList.add('bx-menu');
+        });
+    </script>
+</body>
+</html> 
