@@ -194,6 +194,12 @@
                 width: 100%;
                 padding: 0.8rem;
             }
+
+            .whatsapp-button {
+                width: 90%;
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -307,6 +313,32 @@
             font-size: 0.9rem;
             margin-top: 1rem;
         }
+
+        .whatsapp-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            background: #25D366;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-size: 1.1rem;
+            margin: 2rem auto;
+            max-width: fit-content;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .whatsapp-button i {
+            font-size: 1.5rem;
+        }
+
+        .whatsapp-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -398,6 +430,11 @@
                 Register Your Team
             </a>
         </div>
+        
+        <a href="https://chat.whatsapp.com/HbjrtmuEJzdGecsFydJ2uW" target="_blank" class="whatsapp-button">
+            <i class='bx bxl-whatsapp'></i>
+            Join Event WhatsApp Group
+        </a>
 
         <div class="button-container">
             <a href="Hacker Hunt Rule Book.pdf" target="_blank" class="pdf-button">
