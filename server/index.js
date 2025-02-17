@@ -7,7 +7,7 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 443;
-const MAX_TEAMS = 25;
+const MAX_TEAMS = 40;
 
 const supabase = createClient(
     process.env.SUPABASE_URL,
