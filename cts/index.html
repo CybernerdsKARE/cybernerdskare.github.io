@@ -42,6 +42,16 @@
             padding: 1.5rem;
         }
 
+        /* Add glowing effect to Round 2 icon */
+        .round-card:nth-child(2) .icon-circle {
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5), 0 0 30px rgba(0, 255, 255, 0.3);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .round-card:nth-child(2) .icon-circle:hover {
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.7), 0 0 50px rgba(0, 255, 255, 0.5);
+        }
+
         .round-header {
             display: flex;
             align-items: center;
@@ -515,6 +525,10 @@
             Join us for an exciting journey through the world of cybersecurity! The <span class="highlight">Cyber Tech Sprint</span> is designed to test and enhance your skills across various security domains. From basic CTF challenges to advanced exploitation techniques, this event will push your limits and reward your expertise.
         </p>
 
+        <p class="info-text">
+            <span class="highlight">Note:</span> Round 2 registrations are now open! The event will take place on <strong>19th February 2025</strong>. Don't miss out on this opportunity to showcase your skills.
+        </p>
+
         <div class="rounds-grid">
             <div class="round-card">
                 <div class="round-header">
@@ -534,6 +548,7 @@
                     <h3 class="round-title">Round 2</h3>
                 </div>
                 <p class="round-description">Advanced challenges focusing on exploitation and defense techniques. Dive deep into reverse engineering, binary exploitation, and advanced web security. Qualify Round 1 to participate.</p>
+                <p class="round-description"><strong>Event Date:</strong> 19th February 2025</p>
             </div>
 
             <div class="round-card">
