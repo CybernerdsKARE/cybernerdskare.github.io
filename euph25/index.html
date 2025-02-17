@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacker Hunt Rule Book - Cybernerds KARE</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .content {
+            padding: 2rem;
+            margin-top: 5rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .section-title {
+            color: #00ffff;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .rule-section {
+            margin-bottom: 2rem;
+        }
+        .rule-title {
+            color: #00ff00;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .rule-content {
+            color: #cccccc;
+            line-height: 1.6;
+        }
+        .highlight {
+            color: #00ff00;
+            font-weight: bold;
+        }
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        .info-card {
+            background: rgba(19, 21, 29, 0.8);
+            border: 1px solid #00ffff40;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: transform 0.2s;
+        }
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,255,255,0.2);
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .icon-circle {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            background: rgba(0, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+        .icon-circle i {
+            color: #00ffff;
+            font-size: 1.5rem;
+        }
+        .card-title {
+            color: #00ffff;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+        .pdf-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 255, 255, 0.2);
+            color: #00ffff;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            margin-top: 2rem;
+        }
+        .pdf-button:hover {
+            background: rgba(0, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 1200px) {
+            .content {
+                max-width: 95%;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .cards-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 1rem;
+                margin-top: 4rem;
+            }
+
+            .cards-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .info-card {
+                padding: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .rule-title {
+                font-size: 1.3rem;
+            }
+
+            .rule-content {
+                font-size: 0.95rem;
+            }
+
+            .pdf-button {
+                width: 100%;
+                justify-content: center;
+                padding: 1rem;
+            }
+
+            .menu-btn {
+                display: block;
+                position: relative;
+                z-index: 102;
+            }
+
+            .navbar {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: rgba(19, 21, 29, 0.95);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2rem;
+                transition: 0.3s ease;
+                border-left: 1px solid rgba(0, 255, 255, 0.1);
+                z-index: 101;
+            }
+
+            .registration-card {
+                margin: 2rem 1rem;
+                padding: 1.5rem;
+            }
+
+            .registration-title {
+                font-size: 1.3rem;
+            }
+
+            .register-button {
+                width: 100%;
+                padding: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .content {
+                margin-top: 3.5rem;
+                padding: 0.8rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .icon-circle {
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+
+            .icon-circle i {
+                font-size: 1.2rem;
+            }
+
+            .card-title {
+                font-size: 1.1rem;
+            }
+
+            .rule-section {
+                margin-bottom: 1.5rem;
+            }
+
+            .button-container {
+                margin-top: 1.5rem;
+            }
+
+            .registration-card {
+                margin: 1.5rem 0.5rem;
+                padding: 1.2rem;
+            }
+
+            .registration-title {
+                font-size: 1.2rem;
+            }
+
+            .registration-text {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Handle different screen heights */
+        @media (max-height: 800px) {
+            .content {
+                margin-top: 4rem;
+            }
+        }
+
+        @media (max-height: 600px) {
+            .content {
+                margin-top: 3.5rem;
+            }
+
+            .section-header {
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        /* Hide menu button by default (desktop) */
+        .menu-btn {
+            display: none;
+        }
+
+        /* Registration card styles */
+        .registration-card {
+            background: rgba(19, 21, 29, 0.8);
+            border: 1px solid #00ffff40;
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            margin: 3rem auto;
+            max-width: 500px;
+        }
+
+        .register-button {
+            display: inline-block;
+            background: #00ffff;
+            color: #000;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .register-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,255,255,0.3);
+        }
+
+        .registration-title {
+            color: #00ffff;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .registration-text {
+            color: #ffffff90;
+            margin-bottom: 1rem;
+        }
+
+        .notify-text {
+            color: #00ff00;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="#" class="logo">{Cybernerds KARE}</a>
+        <div class="menu-btn">
+            <i class='bx bx-menu'></i>
+        </div>
+        <nav class="navbar">
+            <a href="/" style="--i: 1">Home</a>
+            <!-- <a href="/cts" style="--i: 2">CTF Event</a> -->
+            <a href="https://euphoria.kalasalingam.ac.in/pages/form/registerform.php" style="--i: 3">Register Now</a>
+        </nav>
+    </header>
+
+    <div class="menu-overlay"></div>
+
+    <section class="content">
+        <div class="section-header">
+            <h1 class="section-title">Euphoria 2k25 - Hacker Hunt</h1>
+        </div>
+
+        <div class="cards-container">
+            <div class="info-card">
+                <div class="card-header">
+                    <div class="icon-circle">
+                        <i class='bx bx-time'></i>
+                    </div>
+                    <h3 class="card-title">Duration</h3>
+                </div>
+                <p class="rule-content">3 hours of intense ethical hacking challenge</p>
+            </div>
+
+            <div class="info-card">
+                <div class="card-header">
+                    <div class="icon-circle">
+                        <i class='bx bx-group'></i>
+                    </div>
+                    <h3 class="card-title">Team Size</h3>
+                </div>
+                <p class="rule-content">Exactly 3 members per team</p>
+            </div>
+
+            <div class="info-card">
+                <div class="card-header">
+                    <div class="icon-circle">
+                        <i class='bx bx-code-alt'></i>
+                    </div>
+                    <h3 class="card-title">Tools</h3>
+                </div>
+                <p class="rule-content">Use any legal cybersecurity tools and ethical hacking methods</p>
+            </div>
+        </div>
+
+        <div class="rule-section">
+            <h2 class="rule-title">1. Event Overview</h2>
+            <p class="rule-content">
+                Hacker Hunt is a cybersecurity competition where teams of ethical hackers will attempt to access a designated server using various cyber tools and techniques. The event is designed to test participants' problem-solving skills, knowledge of cybersecurity, and ability to perform under pressure.
+            </p>
+        </div>
+
+        <div class="rule-section">
+            <h2 class="rule-title">2. Team Composition</h2>
+            <p class="rule-content">
+                <ul>
+                    <li>Each team must consist of exactly 3 members.</li>
+                    <li>Team members cannot be changed once the event starts.</li>
+                    <li>Participants must register their teams before the event.</li>
+                </ul>
+            </p>
+        </div>
+
+        <div class="rule-section">
+            <h2 class="rule-title">3. Event Structure</h2>
+            <p class="rule-content">
+                <ul>
+                    <li>The event consists of one round lasting 3 hours.</li>
+                    <li>Teams will be provided with server details and other necessary information at the beginning of the event.</li>
+                    <li>Participants can use any legal cybersecurity tools and ethical hacking methods to access the server.</li>
+                    <li>Teams must follow ethical hacking principles and should not attempt to disrupt the event environment or attack other teams.</li>
+                </ul>
+            </p>
+        </div>
+
+        <div class="registration-card">
+            <h3 class="registration-title">Registrations Now Open!</h3>
+            <p class="registration-text">Join us for an exciting ethical hacking challenge at Euphoria 2k25</p>
+            <a href="https://euphoria.kalasalingam.ac.in/pages/form/registerform.php" target="_blank" class="register-button">
+                Register Your Team
+            </a>
+        </div>
+
+        <div class="button-container">
+            <a href="Hacker Hunt Rule Book.pdf" target="_blank" class="pdf-button">
+                <i class='bx bxs-file-pdf'></i>
+                Download Complete Rule Book
+            </a>
+        </div>
+    </section>
+
+    <script>
+        const menuBtn = document.querySelector('.menu-btn');
+        const navbar = document.querySelector('.navbar');
+        const overlay = document.querySelector('.menu-overlay');
+        const menuIcon = menuBtn.querySelector('i');
+
+        menuBtn.addEventListener('click', () => {
+            navbar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            // Toggle menu icon
+            if (navbar.classList.contains('active')) {
+                menuIcon.classList.remove('bx-menu');
+                menuIcon.classList.add('bx-x');
+            } else {
+                menuIcon.classList.remove('bx-x');
+                menuIcon.classList.add('bx-menu');
+            }
+        });
+
+        // Close menu when clicking overlay
+        overlay.addEventListener('click', () => {
+            navbar.classList.remove('active');
+            overlay.classList.remove('active');
+            menuIcon.classList.remove('bx-x');
+            menuIcon.classList.add('bx-menu');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.navbar a').forEach(link => {
+            link.addEventListener('click', () => {
+                navbar.classList.remove('active');
+                overlay.classList.remove('active');
+                menuIcon.classList.remove('bx-x');
+                menuIcon.classList.add('bx-menu');
+            });
+        });
+    </script>
+</body>
+</html>
