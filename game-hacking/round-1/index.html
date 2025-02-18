@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Round 1 Reviews - Game Hacking Workshop</title>
+    <link rel="stylesheet" href="../../CSS/style.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .content {
+            padding: 2rem;
+            margin-top: 5rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .alert-card {
+            background: rgba(255, 87, 87, 0.1);
+            border: 1px solid rgba(255, 87, 87, 0.3);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            color: #fff;
+        }
+
+        .alert-title {
+            color: #ff5757;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .alert-content {
+            color: #ffffff90;
+            line-height: 1.6;
+        }
+
+        .download-section {
+            background: rgba(19, 21, 29, 0.8);
+            border: 1px solid #00ffff40;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .download-title {
+            color: #00ffff;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .download-card {
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .download-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.2);
+        }
+
+        .download-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 255, 255, 0.2);
+            color: #00ffff;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .download-button:hover {
+            background: rgba(0, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .download-button i {
+            font-size: 1.2rem;
+        }
+
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .content {
+                padding: 1rem;
+                margin-top: 4rem;
+            }
+
+            .download-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .alert-card {
+                margin: 1rem 0;
+            }
+
+            .download-section {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Menu button styles */
+        .menu-btn {
+            display: none;
+            color: #00ffff;
+            font-size: 1.8rem;
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: block;
+            }
+
+            .navbar {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: rgba(19, 21, 29, 0.95);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2rem;
+                transition: 0.3s ease;
+                border-left: 1px solid rgba(0, 255, 255, 0.1);
+                z-index: 95;
+            }
+
+            .navbar.active {
+                right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrixCanvas"></canvas>
+    <script src="../../JAVASCRIPT/matrix.js"></script>
+
+    <header class="header">
+        <a href="#" class="logo">{Cybernerds KARE}</a>
+        <div class="menu-btn">
+            <i class='bx bx-menu'></i>
+        </div>
+        <nav class="navbar">
+            <a href="/" style="--i: 1">Home</a>
+            <a href="/game-hacking" style="--i: 2">Workshop</a>
+            <a href="/game-hacking/teams" style="--i: 3">Teams</a>
+        </nav>
+    </header>
+
+    <div class="menu-overlay"></div>
+
+    <section class="content">
+        <div class="alert-card">
+            <h3 class="alert-title">
+                <i class='bx bx-error-circle'></i>
+                Important Notice
+            </h3>
+            <p class="alert-content">
+                Round 1 reviews are now open! Please follow these steps carefully:
+                <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                    <li>Download and take a printout of the Review Form</li>
+                    <li>Meet your allotted faculty member with the printed form</li>
+                    <li>Get your marks and faculty signature on the form</li>
+                    <li>Submit the signed form to us before Thursday</li>
+                    <li>Failure to submit by the deadline will result in disqualification</li>
+                </ul>
+            </p>
+        </div>
+
+        <div class="download-section">
+            <h2 class="download-title">Download Required Documents</h2>
+            <div class="download-grid">
+                <div class="download-card">
+                    <h3 style="color: #00ffff; margin-bottom: 1rem;">Review Form</h3>
+                    <p style="color: #ffffff90; margin-bottom: 1rem;">Download and print this form for faculty review</p>
+                    <a href="Review Form.pdf" target="_blank" class="download-button">
+                        <i class='bx bxs-file-pdf'></i>
+                        Download Form
+                    </a>
+                </div>
+
+                <div class="download-card">
+                    <h3 style="color: #00ffff; margin-bottom: 1rem;">Team Details</h3>
+                    <p style="color: #ffffff90; margin-bottom: 1rem;">Check your team's faculty allocation</p>
+                    <a href="Project Expo - Team Details.xlsx" target="_blank" class="download-button">
+                        <i class='bx bxs-file-excel'></i>
+                        View Details
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const menuBtn = document.querySelector('.menu-btn');
+        const navbar = document.querySelector('.navbar');
+        const overlay = document.querySelector('.menu-overlay');
+        const menuIcon = menuBtn.querySelector('i');
+
+        menuBtn.addEventListener('click', () => {
+            navbar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            if (navbar.classList.contains('active')) {
+                menuIcon.classList.remove('bx-menu');
+                menuIcon.classList.add('bx-x');
+            } else {
+                menuIcon.classList.remove('bx-x');
+                menuIcon.classList.add('bx-menu');
+            }
+        });
+
+        overlay?.addEventListener('click', () => {
+            navbar.classList.remove('active');
+            overlay.classList.remove('active');
+            menuIcon.classList.remove('bx-x');
+            menuIcon.classList.add('bx-menu');
+        });
+
+        document.querySelectorAll('.navbar a').forEach(link => {
+            link.addEventListener('click', () => {
+                navbar.classList.remove('active');
+                overlay?.classList.remove('active');
+                menuIcon.classList.remove('bx-x');
+                menuIcon.classList.add('bx-menu');
+            });
+        });
+    </script>
+</body>
+</html> 
