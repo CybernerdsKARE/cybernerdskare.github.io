@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selected Teams - Cybernerds KARE</title>
+    <link rel="stylesheet" href="../../CSS/style.css">
+    <link rel="stylesheet" href="../../CSS/game-hacking.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        .content-section {
+            padding: 2rem;
+            margin-top: 5rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            color: #00ffff;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            color: #ffffff90;
+            font-size: 1.2rem;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            background: rgba(19, 21, 29, 0.8);
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #00ffff;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #00ffff;
+            font-size: 1.2rem;
+        }
+
+        .teams-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-card {
+            background: rgba(19, 21, 29, 0.8);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .team-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .team-number {
+            background: rgba(0, 255, 255, 0.1);
+            color: #00ffff;
+            font-size: 1.5rem;
+            font-weight: bold;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+        }
+
+        .team-title {
+            color: #00ffff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            flex: 1;
+        }
+
+        .team-members {
+            list-style: none;
+            padding: 0;
+        }
+
+        .team-member {
+            display: flex;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .team-member:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .member-reg {
+            color: #ffffff80;
+            font-size: 0.9rem;
+            width: 120px;
+            margin-right: 1rem;
+        }
+
+        .member-name {
+            color: #fff;
+            font-size: 0.95rem;
+            flex: 1;
+        }
+
+        .no-results {
+            text-align: center;
+            color: #ffffff90;
+            font-size: 1.2rem;
+            grid-column: 1 / -1;
+            padding: 2rem;
+        }
+
+        /* Hamburger menu styles */
+        .menu-btn {
+            display: none;
+            color: #00ffff;
+            font-size: 1.8rem;
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        /* Mobile navbar styles */
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: block;
+            }
+
+            .navbar {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: rgba(19, 21, 29, 0.95);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2rem;
+                transition: 0.3s ease;
+                border-left: 1px solid rgba(0, 255, 255, 0.1);
+                z-index: 95;
+            }
+
+            .navbar.active {
+                right: 0;
+            }
+
+            .navbar a {
+                font-size: 1.2rem;
+                padding: 0.8rem 2rem;
+                width: 80%;
+                text-align: center;
+                border: 1px solid rgba(0, 255, 255, 0.1);
+                border-radius: 0.5rem;
+            }
+
+            .navbar a:hover {
+                background: rgba(0, 255, 255, 0.1);
+            }
+
+            /* Overlay when menu is open */
+            .menu-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                backdrop-filter: blur(3px);
+                z-index: 90;
+            }
+
+            .menu-overlay.active {
+                display: block;
+            }
+        }
+
+        /* Base mobile styles - for portrait phones */
+        @media (max-width: 576px) {
+            .content-section {
+                padding: 1rem;
+                margin-top: 4rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .section-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .teams-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .team-card {
+                padding: 1rem;
+            }
+
+            .team-number {
+                width: 2.5rem;
+                height: 2.5rem;
+                font-size: 1.2rem;
+            }
+
+            .team-title {
+                font-size: 0.95rem;
+            }
+
+            .member-reg {
+                width: 100px;
+                font-size: 0.8rem;
+            }
+
+            .member-name {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Landscape phones */
+        @media (min-width: 576px) and (max-width: 767px) {
+            .teams-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        /* Tablets */
+        @media (min-width: 768px) and (max-width: 991px) {
+            .teams-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        /* Hover effects only for devices that support hover */
+        @media (hover: hover) {
+            .team-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 4px 20px rgba(0, 255, 255, 0.2);
+            }
+        }
+
+        /* Reduced motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            .team-card {
+                transition: none;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .teams-container {
+                display: block;
+            }
+
+            .team-card {
+                break-inside: avoid;
+                margin-bottom: 1rem;
+            }
+
+            .header, .menu-btn, .menu-overlay, .search-container {
+                display: none;
+            }
+        }
+
+        /* Canvas for confetti */
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrixCanvas"></canvas>
+    <script src="../../JAVASCRIPT/matrix.js"></script>
+
+    <header class="header">
+        <a href="#" class="logo">{Cybernerds KARE}</a>
+        <div class="menu-btn">
+            <i class='bx bx-menu'></i>
+        </div>
+        <nav class="navbar">
+            <a href="/" style="--i: 1">Home</a>
+            <a href="/game-hacking/problem-statements" style="--i: 2">Problem Statements</a>
+            <a href="/game-hacking/register" style="--i: 3">Register Now</a>
+            <a href="/game-hacking/teams" style="--i: 4">Registered Teams</a>
+        </nav>
+    </header>
+
+    <div class="menu-overlay"></div>
+
+    <section class="content-section">
+        <div class="section-header">
+            <h1 class="section-title">Selected Teams</h1>
+            <p class="section-subtitle">Congratulations to all the teams selected for the Game Hacking Workshop!</p>
+        </div>
+
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search by team number, project, name or register number...">
+            <i class='bx bx-search search-icon'></i>
+        </div>
+
+        <div id="teamsContainer" class="teams-container">
+            <!-- Teams will be populated here -->
+        </div>
+    </section>
+
+    <script>
+        // Team data in JSON format
+        const teamsData = [
+            {
+                "teamNo": 1,
+                "projectTitle": "CREDIT CARD FRAUD DETECTION SYSTEM",
+                "members": [
+                    { "regNo": "99220040482", "name": "D THANU SRI" },
+                    { "regNo": "99220040121", "name": "M KOWSHIK" },
+                    { "regNo": "99220040465", "name": "SRINIJA C" },
+                    { "regNo": "99220040346", "name": "R SREE SAI" }
+                ]
+            },
+            {
+                "teamNo": 2,
+                "projectTitle": "CYBERCRIME REPORTING & ANALYSIS SYSTEM",
+                "members": [
+                    { "regNo": "99230040164", "name": "SHAIK AASHIQ BABA" },
+                    { "regNo": "99230040159", "name": "POTHU UMESH CHANDRA REDDY" },
+                    { "regNo": "99230040171", "name": "SURE PRANAY TEJA" },
+                    { "regNo": "99230041177", "name": "LOKESHWARAN R" }
+                ]
+            },
+            {
+                "teamNo": 3,
+                "projectTitle": "ANTIVIRUS SOFTWARE WITH REAL-TIME PROTECTION",
+                "members": [
+                    { "regNo": "99220041831", "name": "MATHIVANAN M" },
+                    { "regNo": "99220041889", "name": "DINESH KARTHIC" },
+                    { "regNo": "99220041933", "name": "GURUPRAKASH R" },
+                    { "regNo": "99220042093", "name": "T VISHAL" }
+                ]
+            },
+            {
+                "teamNo": 4,
+                "projectTitle": "EDUCATIONAL KEYLOGGER SYSTEM",
+                "members": [
+                    { "regNo": "99220041056", "name": "UDHAYAN V S" },
+                    { "regNo": "99220040744", "name": "SURYA K" },
+                    { "regNo": "99220040208", "name": "THARSHAN R S" },
+                    { "regNo": "99220041768", "name": "R. MOHAN RAM KUMAR" }
+                ]
+            },
+            {
+                "teamNo": 5,
+                "projectTitle": "SECURE PASSWORD MANAGER",
+                "members": [
+                    { "regNo": "99220040772", "name": "VISHWARADHYA V" },
+                    { "regNo": "99220041043", "name": "P NANDHIKAR" },
+                    { "regNo": "99220040681", "name": "MANOJCHARAN" },
+                    { "regNo": "99220040750", "name": "T KARTHIK" }
+                ]
+            },
+            {
+                "teamNo": 6,
+                "projectTitle": "ONLINE PAYMENT FRAUD DETECTION",
+                "members": [
+                    { "regNo": "99220040624", "name": "MANJULA THARUNKUMAR" },
+                    { "regNo": "99220040591", "name": "K. PRADEEP" },
+                    { "regNo": "99220040609", "name": "M.NAGENDRA KUMAR REDDY" },
+                    { "regNo": "99220040590", "name": "K.NAGA LINGA" }
+                ]
+            },
+            {
+                "teamNo": 7,
+                "projectTitle": "AI-POWERED PHISHING DETECTION SYSTEM",
+                "members": [
+                    { "regNo": "99220041563", "name": "RAMBA BALA SATYA SRINIVAS" },
+                    { "regNo": "99220040885", "name": "KETHINENI PRANEETH" },
+                    { "regNo": "9922005235", "name": "PRAGALLAPATI SUNDAR TEJA" },
+                    { "regNo": "9922005246", "name": "SOMISETTY VENKATA SUMANTH" }
+                ]
+            },
+            {
+                "teamNo": 8,
+                "projectTitle": "DATA ENCRYPTION TOOL",
+                "members": [
+                    { "regNo": "99220040368", "name": "GEETHESHWAR G" },
+                    { "regNo": "99220041838", "name": "SOWMYA. M" },
+                    { "regNo": "99220042107", "name": "S MADHURIMA" },
+                    { "regNo": "99220041776", "name": "HK PRANATHI" }
+                ]
+            },
+            {
+                "teamNo": 9,
+                "projectTitle": "SECURE FILE SHARING PLATFORM",
+                "members": [
+                    { "regNo": "9922005254", "name": "UMMADISETTY VENKATA TEJA" },
+                    { "regNo": "99220040677", "name": "P.MEGHA SHYAM REDDY" },
+                    { "regNo": "9922005035", "name": "GANJIKUNTA RAGHAVENDRA" },
+                    { "regNo": "99220040083", "name": "K. BHAVESH SHANKAR" }
+                ]
+            },
+            {
+                "teamNo": 10,
+                "projectTitle": "SECURE PASSWORD MANAGER",
+                "members": [
+                    { "regNo": "9921008110", "name": "GRACE ADVITIYA T" },
+                    { "regNo": "9921008142", "name": "P. MEGHANA" },
+                    { "regNo": "9921008154", "name": "KSL PRASHANTHI" },
+                    { "regNo": "9921008115", "name": "POLANI BHAVANI" }
+                ]
+            },
+            {
+                "teamNo": 11,
+                "projectTitle": "SECURE FILE SHARING PLATFORM",
+                "members": [
+                    { "regNo": "99220041606", "name": "JONNALAGADDA SOMANADH" },
+                    { "regNo": "99220041611", "name": "NUTHALAPATI VEERA VENKATA NAGASAI" },
+                    { "regNo": "99220041457", "name": "CHEKURI PUNEETH SRI VARMA" },
+                    { "regNo": "9823009010", "name": "THAVISALA VENKATA REDDY" }
+                ]
+            },
+            {
+                "teamNo": 12,
+                "projectTitle": "PASSWORD-LESS SECURE AUTHENTICATION SYSTEM",
+                "members": [
+                    { "regNo": "99220040588", "name": "KRISHNA SAIRAM MALAPAKA" },
+                    { "regNo": "99220040115", "name": "SANTHOSH SAIRAM KUMAR REDDY MANDA" },
+                    { "regNo": "99220040113", "name": "M ANIL KUMAR" },
+                    { "regNo": "99220040341", "name": "PONNURU VINAY SARAN" }
+                ]
+            },
+            {
+                "teamNo": 13,
+                "projectTitle": "EDUCATIONAL KEYLOGGER SYSTEM",
+                "members": [
+                    { "regNo": "99220040069", "name": "K HEMA CHARAN" },
+                    { "regNo": "99220040511", "name": "G GANESH KUMAR" },
+                    { "regNo": "99220040495", "name": "D L DURGA PRASAD" },
+                    { "regNo": "99220040064", "name": "G PRANAY GOPINATH" }
+                ]
+            },
+            {
+                "teamNo": 14,
+                "projectTitle": "PASSWORD-LESS SECURE AUTHENTICATION SYSTEM",
+                "members": [
+                    { "regNo": "99220041046", "name": "SIVA N" },
+                    { "regNo": "99220041045", "name": "SANDOSHSURYA M" },
+                    { "regNo": "99220041112", "name": "ASHOK S" },
+                    { "regNo": "99220040538", "name": "JACKSON AJAY J" }
+                ]
+            },
+            {
+                "teamNo": 15,
+                "projectTitle": "SECURE PASSWORD MANAGER",
+                "members": [
+                    { "regNo": "99220041773", "name": "SK. ANEES AHAMED" },
+                    { "regNo": "99220042077", "name": "A. GOPI" },
+                    { "regNo": "99220040376", "name": "SK AFZAL" },
+                    { "regNo": "99220040435", "name": "ANNAM JAGADEESH" }
+                ]
+            },
+            {
+                "teamNo": 16,
+                "projectTitle": "SECURE PASSWORD MANAGER",
+                "members": [
+                    { "regNo": "99220040336", "name": "SHANMUKHA PERLA" },
+                    { "regNo": "99220040385", "name": "A. SURYA PRAKASH REDDY" },
+                    { "regNo": "99220040373", "name": "PENUMARTHI SAI SURENDRA" },
+                    { "regNo": "99220040334", "name": "PENUMARTHI PRUDVI VENKAT" }
+                ]
+            },
+            {
+                "teamNo": 17,
+                "projectTitle": "CREDIT CARD FRAUD DETECTION SYSTEM",
+                "members": [
+                    { "regNo": "99220041947", "name": "ROHIT KUMAR SINGH" },
+                    { "regNo": "99220041996", "name": "SONU KUMAR" },
+                    { "regNo": "99220041952", "name": "SONU KUMAR" },
+                    { "regNo": "99220041923", "name": "ABHIJEET KUMAR" }
+                ]
+            },
+            {
+                "teamNo": 18,
+                "projectTitle": "DEEPFAKE DETECTION SYSTEM",
+                "members": [
+                    { "regNo": "99220040689", "name": "AJAY KUMAR REDDY" },
+                    { "regNo": "99220041152", "name": "CH.ESWAR" },
+                    { "regNo": "99220041180", "name": "G.VEKAT" },
+                    { "regNo": "99220040674", "name": "P.ROOPNANDA REDDY" }
+                ]
+            },
+            {
+                "teamNo": 19,
+                "projectTitle": "DATA ENCRYPTION TOOL",
+                "members": [
+                    { "regNo": "99220040463", "name": "B.MANIKANTA" },
+                    { "regNo": "99220040427", "name": "AMIR RAZA" },
+                    { "regNo": "99220040642", "name": "HOMNADDAA" },
+                    { "regNo": "99220040419", "name": "SUJAN KUMAR" }
+                ]
+            },
+        ];
+
+        // Function to render teams
+        function renderTeams(teams) {
+            const container = document.getElementById('teamsContainer');
+            container.innerHTML = '';
+
+            if (teams.length === 0) {
+                const noResults = document.createElement('div');
+                noResults.className = 'no-results';
+                noResults.textContent = 'No teams found matching your search.';
+                container.appendChild(noResults);
+                return;
+            }
+
+            teams.forEach(team => {
+                const teamCard = document.createElement('div');
+                teamCard.className = 'team-card';
+
+                const teamHeader = document.createElement('div');
+                teamHeader.className = 'team-header';
+
+                const teamNumber = document.createElement('div');
+                teamNumber.className = 'team-number';
+                teamNumber.textContent = team.teamNo;
+
+                const teamTitle = document.createElement('div');
+                teamTitle.className = 'team-title';
+                teamTitle.textContent = team.projectTitle;
+
+                teamHeader.appendChild(teamNumber);
+                teamHeader.appendChild(teamTitle);
+                teamCard.appendChild(teamHeader);
+
+                const membersList = document.createElement('ul');
+                membersList.className = 'team-members';
+
+                team.members.forEach(member => {
+                    const memberItem = document.createElement('li');
+                    memberItem.className = 'team-member';
+
+                    const memberReg = document.createElement('div');
+                    memberReg.className = 'member-reg';
+                    memberReg.textContent = member.regNo;
+
+                    const memberName = document.createElement('div');
+                    memberName.className = 'member-name';
+                    memberName.textContent = member.name;
+
+                    memberItem.appendChild(memberReg);
+                    memberItem.appendChild(memberName);
+                    membersList.appendChild(memberItem);
+                });
+
+                teamCard.appendChild(membersList);
+                container.appendChild(teamCard);
+            });
+        }
+
+        // Search functionality
+        function setupSearch() {
+            const searchInput = document.getElementById('searchInput');
+            
+            searchInput.addEventListener('input', () => {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                
+                if (searchTerm === '') {
+                    renderTeams(teamsData);
+                    return;
+                }
+                
+                const filteredTeams = teamsData.filter(team => {
+                    // Search by team number
+                    if (team.teamNo.toString().includes(searchTerm)) {
+                        return true;
+                    }
+                    
+                    // Search by project title
+                    if (team.projectTitle.toLowerCase().includes(searchTerm)) {
+                        return true;
+                    }
+                    
+                    // Search by member name or reg number
+                    return team.members.some(member => 
+                        member.name.toLowerCase().includes(searchTerm) || 
+                        member.regNo.toLowerCase().includes(searchTerm)
+                    );
+                });
+                
+                renderTeams(filteredTeams);
+            });
+        }
+
+        // Mobile menu functionality
+        function setupMobileMenu() {
+            const menuBtn = document.querySelector('.menu-btn');
+            const navbar = document.querySelector('.navbar');
+            const overlay = document.querySelector('.menu-overlay');
+            const menuIcon = menuBtn.querySelector('i');
+
+            menuBtn.addEventListener('click', () => {
+                navbar.classList.toggle('active');
+                overlay.classList.toggle('active');
+                
+                // Toggle menu icon
+                if (navbar.classList.contains('active')) {
+                    menuIcon.classList.remove('bx-menu');
+                    menuIcon.classList.add('bx-x');
+                } else {
+                    menuIcon.classList.remove('bx-x');
+                    menuIcon.classList.add('bx-menu');
+                }
+            });
+
+            // Close menu when clicking overlay
+            overlay.addEventListener('click', () => {
+                navbar.classList.remove('active');
+                overlay.classList.remove('active');
+                menuIcon.classList.remove('bx-x');
+                menuIcon.classList.add('bx-menu');
+            });
+
+            // Close menu when clicking a link
+            document.querySelectorAll('.navbar a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navbar.classList.remove('active');
+                    overlay.classList.remove('active');
+                    menuIcon.classList.remove('bx-x');
+                    menuIcon.classList.add('bx-menu');
+                });
+            });
+        }
+
+        // Initialize everything when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTeams(teamsData);
+            setupSearch();
+            setupMobileMenu();
+        });
+    </script>
+</body>
+</html>
