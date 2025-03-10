@@ -4,14 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hacker Hunt Rule Book - Cybernerds KARE</title>
-    <link rel="stylesheet" href="../CSS/style.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <style>
-        body {
-            background-color: #0a0a0a;
-            color: #fff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Chakra+Petch:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary: #ff0033;
+            --primary-glow: rgba(255, 0, 51, 0.3);
+            --secondary: #1a1a1a;
+            --text: #ffffff;
+            --text-secondary: #cccccc;
+            --background: #0a0a0a;
+            --card-bg: rgba(26, 26, 26, 0.95);
+            --border-color: rgba(255, 0, 51, 0.2);
         }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            font-family: 'Chakra Petch', sans-serif;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, var(--primary-glow) 0%, transparent 70%),
+                radial-gradient(circle at 80% 70%, var(--primary-glow) 0%, transparent 70%);
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary);
+            font-size: 1.5rem;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+
         .content {
             padding: 2rem;
             margin-top: 5rem;
@@ -19,37 +70,48 @@
             margin-left: auto;
             margin-right: auto;
         }
+
         .section-header {
             text-align: center;
             margin-bottom: 3rem;
         }
+
         .section-title {
-            color: #00ffff;
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
             font-size: 2.5rem;
             margin-bottom: 1rem;
+            text-shadow: 0 0 15px var(--primary-glow);
         }
+
         .rule-section {
             margin-bottom: 2rem;
         }
+
         .rule-title {
-            color: #00ff00;
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
             font-size: 1.5rem;
             margin-bottom: 1rem;
         }
+
         .rule-content {
-            color: #cccccc;
+            color: var(--text-secondary);
             line-height: 1.6;
         }
+
         .highlight {
             color: #00ff00;
             font-weight: bold;
         }
+
         .cards-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
             margin: 3rem 0;
         }
+
         .info-card {
             background: rgba(19, 21, 29, 0.8);
             border: 1px solid #00ffff40;
@@ -57,15 +119,18 @@
             padding: 1.5rem;
             transition: transform 0.2s;
         }
+
         .info-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 5px 15px rgba(0,255,255,0.2);
         }
+
         .card-header {
             display: flex;
             align-items: center;
             margin-bottom: 1rem;
         }
+
         .icon-circle {
             width: 3rem;
             height: 3rem;
@@ -76,15 +141,18 @@
             justify-content: center;
             margin-right: 1rem;
         }
+
         .icon-circle i {
             color: #00ffff;
             font-size: 1.5rem;
         }
+
         .card-title {
             color: #00ffff;
             font-size: 1.2rem;
             margin: 0;
         }
+
         .pdf-button {
             display: inline-flex;
             align-items: center;
@@ -98,10 +166,12 @@
             border: 1px solid rgba(0, 255, 255, 0.3);
             margin-top: 2rem;
         }
+
         .pdf-button:hover {
             background: rgba(0, 255, 255, 0.3);
             transform: translateY(-2px);
         }
+
         .button-container {
             text-align: center;
             margin-top: 2rem;
@@ -271,36 +341,77 @@
 
         /* Registration card styles */
         .registration-card {
-            background: rgba(19, 21, 29, 0.8);
-            border: 1px solid #00ffff40;
-            border-radius: 1rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
             padding: 2rem;
             text-align: center;
             margin: 3rem auto;
             max-width: 500px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .registration-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+        }
+
+        .registration-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .registration-title {
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px var(--primary-glow);
         }
 
         .register-button {
             display: inline-block;
-            background: #00ffff;
-            color: #000;
+            background: transparent;
+            color: var(--primary);
             padding: 1rem 2rem;
             border-radius: 0.5rem;
             text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
             font-weight: 600;
             margin-top: 1rem;
             transition: all 0.3s ease;
+            border: 1px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .register-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            transition: transform 0.3s ease;
+            z-index: -1;
         }
 
         .register-button:hover {
+            color: var(--text);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,255,255,0.3);
+            box-shadow: 0 0 20px var(--primary-glow);
         }
 
-        .registration-title {
-            color: #00ffff;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+        .register-button:hover::before {
+            transform: translateX(100%);
         }
 
         .registration-text {
@@ -342,163 +453,188 @@
 
         .bento-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
-            margin: 2rem auto 3rem;
+            margin: 2rem auto;
             max-width: 1200px;
             padding: 0 1rem;
         }
 
-        .bento-grid-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-
-        .bento-item {
-            background: rgba(19, 21, 29, 0.8);
-            border: 1px solid #00ffff40;
-            border-radius: 1rem;
-            padding: 1.5rem;
-            transition: transform 0.2s;
-        }
-
-        .bento-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,255,255,0.2);
-        }
-
         .event-details {
-            height: 100%;
+            grid-column: span 2;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            padding: 2rem;
+        }
+
+        .event-details .card-header {
+            grid-column: span 2;
         }
 
         .detail-row {
             display: flex;
             align-items: center;
-            gap: 0.8rem;
-            margin-top: 1rem;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 0, 51, 0.05);
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
         }
 
         .detail-row i {
-            color: #00ffff;
-            font-size: 1.2rem;
+            color: var(--primary);
+            font-size: 1.5rem;
         }
 
-        @media (max-width: 768px) {
-            .bento-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .bento-grid-row {
-                grid-template-columns: 1fr;
-            }
+        .duration-card {
+            grid-row: span 3;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
         }
 
-        /* Enhanced responsive styles */
-        @media (max-width: 1200px) {
-            .bento-grid {
-                max-width: 95%;
-            }
+        .action-box {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 0, 51, 0.05);
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--text);
         }
 
+        .action-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 0, 51, 0.15);
+            background: rgba(255, 0, 51, 0.1);
+        }
+
+        .action-box i {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .action-box .box-content {
+            flex: 1;
+        }
+
+        .action-box h4 {
+            color: var(--primary);
+            margin: 0 0 0.25rem 0;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+        }
+
+        .action-box p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .bento-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bento-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 0.5rem;
+            padding: 1px;
+            background: linear-gradient(45deg, transparent, var(--primary), transparent);
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .bento-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(255, 0, 51, 0.15);
+        }
+
+        /* Responsive Updates */
         @media (max-width: 992px) {
             .bento-grid {
-                grid-template-columns: 3fr 2fr;
-                gap: 1rem;
+                grid-template-columns: repeat(2, 1fr);
             }
 
-            .bento-grid-row {
-                gap: 1rem;
+            .event-details {
+                grid-column: span 2;
             }
 
-            .card-title {
-                font-size: 1.1rem;
-            }
-
-            .rule-content {
-                font-size: 0.95rem;
+            .duration-card {
+                grid-row: span 2;
             }
         }
 
         @media (max-width: 768px) {
-            .content {
-                padding: 1rem;
-                margin-top: 4rem;
-            }
-
             .bento-grid {
                 grid-template-columns: 1fr;
-                gap: 1rem;
-                margin: 1.5rem auto;
             }
-            
-            .bento-grid-row {
+
+            .event-details {
+                grid-column: 1;
                 grid-template-columns: 1fr;
-                gap: 1rem;
             }
 
-            .bento-item {
-                padding: 1.2rem;
+            .event-details .card-header {
+                grid-column: 1;
             }
 
-            .icon-circle {
-                width: 2.5rem;
-                height: 2.5rem;
-            }
-
-            .icon-circle i {
-                font-size: 1.2rem;
-            }
-
-            .button-container {
-                display: grid;
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-
-            .pdf-button {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .whatsapp-button {
-                width: 100%;
+            .duration-card {
+                grid-row: auto;
             }
         }
 
-        @media (max-width: 480px) {
-            .section-title {
-                font-size: 1.8rem;
-            }
-
-            .bento-item {
-                padding: 1rem;
-            }
-
-            .detail-row {
-                gap: 0.5rem;
-                font-size: 0.9rem;
-            }
-
-            .card-title {
-                font-size: 1rem;
-            }
-
-            .rule-content {
-                font-size: 0.9rem;
-            }
-
-            .registration-card {
-                padding: 1.2rem;
-            }
+        /* Navbar Styles */
+        .navbar a {
+            font-size: 1.15rem;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            margin-left: 2.5rem;
+            position: relative;
+            transition: all 0.3s ease;
         }
 
-        /* Adjust button container layout */
-        .button-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin-top: 2rem;
+        .navbar a::before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .navbar a:hover::before {
+            width: 100%;
+        }
+
+        .navbar a:hover {
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary-glow);
+            outline: none;
+        }
+
+        .navbar a:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 5px;
+            border-radius: 4px;
         }
     </style>
 </head>
@@ -534,15 +670,21 @@
                 </div>
                 <div class="detail-row">
                     <i class='bx bx-time'></i>
-                    <span>9:30 AM to 12:30 PM</span>
+                    <div>
+                        <h4>Time</h4>
+                        <span>9:30 AM to 12:30 PM</span>
+                    </div>
                 </div>
                 <div class="detail-row">
                     <i class='bx bx-building'></i>
-                    <span>8601 Lab</span>
+                    <div>
+                        <h4>Venue</h4>
+                        <span>8601 Lab</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="bento-item">
+            <div class="bento-item duration-card">
                 <div class="card-header">
                     <div class="icon-circle">
                         <i class='bx bx-time'></i>
@@ -550,28 +692,50 @@
                     <h3 class="card-title">Duration</h3>
                 </div>
                 <p class="rule-content">3 hours of intense ethical hacking challenge</p>
+
+                <a href="https://chat.whatsapp.com/HbjrtmuEJzdGecsFydJ2uW" class="action-box" target="_blank">
+                    <i class='bx bxl-whatsapp'></i>
+                    <div class="box-content">
+                        <h4>Join WhatsApp Group</h4>
+                        <p>Get updates and connect with participants</p>
+                    </div>
+                </a>
+
+                <a href="Hacker Hunt Rule Book.pdf" class="action-box" target="_blank">
+                    <i class='bx bxs-file-pdf'></i>
+                    <div class="box-content">
+                        <h4>Rule Book</h4>
+                        <p>Download complete event guidelines</p>
+                    </div>
+                </a>
+
+                <a href="/euph25/learning" class="action-box">
+                    <i class='bx bx-book-open'></i>
+                    <div class="box-content">
+                        <h4>Learning Materials</h4>
+                        <p>Access preparation resources</p>
+                    </div>
+                </a>
             </div>
 
-            <div class="bento-grid-row" style="grid-column: 1 / -1;">
-                <div class="bento-item">
-                    <div class="card-header">
-                        <div class="icon-circle">
-                            <i class='bx bx-group'></i>
-                        </div>
-                        <h3 class="card-title">Team Size</h3>
+            <div class="bento-item">
+                <div class="card-header">
+                    <div class="icon-circle">
+                        <i class='bx bx-group'></i>
                     </div>
-                    <p class="rule-content">Exactly 3 members per team</p>
+                    <h3 class="card-title">Team Size</h3>
                 </div>
+                <p class="rule-content">Exactly 3 members per team</p>
+            </div>
 
-                <div class="bento-item">
-                    <div class="card-header">
-                        <div class="icon-circle">
-                            <i class='bx bx-code-alt'></i>
-                        </div>
-                        <h3 class="card-title">Tools</h3>
+            <div class="bento-item">
+                <div class="card-header">
+                    <div class="icon-circle">
+                        <i class='bx bx-code-alt'></i>
                     </div>
-                    <p class="rule-content">Use any legal cybersecurity tools and ethical hacking methods</p>
+                    <h3 class="card-title">Tools</h3>
                 </div>
+                <p class="rule-content">Use any legal cybersecurity tools and ethical hacking methods</p>
             </div>
         </div>
 
