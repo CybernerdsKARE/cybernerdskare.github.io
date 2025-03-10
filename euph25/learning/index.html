@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Materials - Hacker Hunt</title>
+    <link rel="stylesheet" href="../../CSS/style.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .content {
+            padding: 2rem;
+            margin-top: 5rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .section-title {
+            color: #00ffff;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .learning-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .learning-card {
+            background: rgba(19, 21, 29, 0.8);
+            border: 1px solid #00ffff40;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: transform 0.2s;
+        }
+        .learning-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,255,255,0.2);
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .icon-circle {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            background: rgba(0, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+        .icon-circle i {
+            color: #00ffff;
+            font-size: 1.5rem;
+        }
+        .card-title {
+            color: #00ffff;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        .card-description {
+            color: #cccccc;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        .resource-list {
+            list-style: none;
+            padding: 0;
+        }
+        .resource-list li {
+            margin-bottom: 0.8rem;
+        }
+        .resource-link {
+            display: flex;
+            align-items: center;
+            color: #00ff00;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .resource-link:hover {
+            color: #00ffff;
+        }
+        .resource-link i {
+            margin-right: 0.5rem;
+        }
+        .difficulty {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.3rem;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+        }
+        .beginner { background: #4CAF50; }
+        .intermediate { background: #FFC107; }
+        .advanced { background: #F44336; }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 1rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .learning-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="#" class="logo">{Cybernerds KARE}</a>
+        <div class="menu-btn">
+            <i class='bx bx-menu'></i>
+        </div>
+        <nav class="navbar">
+            <a href="/euph25" style="--i: 1">Back to Event</a>
+        </nav>
+    </header>
+
+    <div class="menu-overlay"></div>
+
+    <section class="content">
+        <div class="section-header">
+            <h1 class="section-title">Learning Materials</h1>
+            <p>Resources to help you prepare for the Hacker Hunt challenge</p>
+        </div>
+
+        <div class="learning-grid">
+            <!-- Basic Tools Section -->
+            <div class="learning-card">
+                <div class="card-header">
+                    <div class="icon-circle">
+                        <i class='bx bx-terminal'></i>
+                    </div>
+                </div>
+                <h3 class="card-title">Essential Tools</h3>
+                <p class="card-description">Get familiar with the basic tools you'll need for the challenge.</p>
+                <ul class="resource-list">
+                    <li>
+                        <a href="https://tryhackme.com/room/linuxfundamentalspart1" class="resource-link" target="_blank">
+                            <i class='bx bx-right-arrow-alt'></i>
+                            Linux Fundamentals
+                            <span class="difficulty beginner">Beginner</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://tryhackme.com/room/metasploitintro" class="resource-link" target="_blank">
+                            <i class='bx bx-right-arrow-alt'></i>
+                            Metasploit Basics
+                            <span class="difficulty beginner">Beginner</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://tryhackme.com/room/nmap01" class="resource-link" target="_blank">
+                            <i class='bx bx-right-arrow-alt'></i>
+                            Nmap Scanning
+                            <span class="difficulty beginner">Beginner</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Web Security Section -->
+            <div class="learning-card">
+                <div class="card-header">
+                    <div class="icon-circle">
+                        <i class='bx bx-globe'></i>
+                    </div>
+                </div>
+                <h3 class="card-title">Web Security</h3>
+                <p class="card-description">Learn about common web vulnerabilities and exploitation techniques.</p>
+                <ul class="resource-list">
+                    <li>
+                        <a href="https://tryhackme.com/room/webapplicationbasics" class="resource-link" target="_blank">
+                            <i class='bx bx-right-arrow-alt'></i>
+                            Web Application Basics
+                            <span class="difficulty beginner">Beginner</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://tryhackme.com/room/sqlinjectionlm" class="resource-link" target="_blank">
+                            <i class='bx bx-right-arrow-alt'></i>
+                            SQL Injection
+                            <span class="difficulty intermediate">Intermediate</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://portswigger.net/web-security/all-labs" class="resource-link" target="_blank">
+                            <i class='bx bx-right-arrow-alt'></i>
+                            PortSwigger Labs
+                            <span class="difficulty intermediate">Intermediate</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Privilege Escalation -->
+            <div class="learning-card">
+                <div class="card-header">
+                    <div class="icon-circle">
+                        <i class='bx bx-up-arrow-circle'></i>
+                    </div>
+                </div>
+                <h3 class="card-title">Privilege Escalation</h3>
+                <p class="card-description">Master the techniques to escalate privileges on compromised systems.</p>
+                <ul class="resource-list">
+                    <li>
+                        <a href="https://tryhackme.com/room/linprivesc" class="resource-link" target="_blank">
+                            <i class='bx bx-right-arrow-alt'></i>
+                            Linux PrivEsc
+                            <span class="difficulty intermediate">Intermediate</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://tryhackme.com/room/windowsforensics1" class="resource-link" target="_blank">
+                            <i class='bx bx-right-arrow-alt'></i>
+                            Windows Forensics
+                            <span class="difficulty intermediate">Intermediate</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Practice Challenges -->
+            <div class="learning-card">
+                <div class="card-header">
+                    <div class="icon-circle">
+                        <i class='bx bx-target-lock'></i>
+                    </div>
+                </div>
+                <h3 class="card-title">Practice Challenges</h3>
+                <p class="card-description">Test your skills with these practice challenges.</p>
+                <ul class="resource-list">
+                    <li>
+                        <a href="https://tryhackme.com/room/basicpentestingjt" class="resource-link" target="_blank">
+                            <i class='bx bx-right-arrow-alt'></i>
+                            Basic Pentesting
+                            <span class="difficulty beginner">Beginner</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://tryhackme.com/room/vulnversity" class="resource-link" target="_blank">
+                            <i class='bx bx-right-arrow-alt'></i>
+                            Vulnversity
+                            <span class="difficulty beginner">Beginner</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://tryhackme.com/room/billing" class="resource-link" target="_blank">
+                            <i class='bx bx-right-arrow-alt'></i>
+                            Hacker Park
+                            <span class="difficulty beginner">Beginner</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const menuBtn = document.querySelector('.menu-btn');
+        const navbar = document.querySelector('.navbar');
+        const overlay = document.querySelector('.menu-overlay');
+        const menuIcon = menuBtn.querySelector('i');
+
+        menuBtn.addEventListener('click', () => {
+            navbar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            if (navbar.classList.contains('active')) {
+                menuIcon.classList.remove('bx-menu');
+                menuIcon.classList.add('bx-x');
+            } else {
+                menuIcon.classList.remove('bx-x');
+                menuIcon.classList.add('bx-menu');
+            }
+        });
+
+        overlay.addEventListener('click', () => {
+            navbar.classList.remove('active');
+            overlay.classList.remove('active');
+            menuIcon.classList.remove('bx-x');
+            menuIcon.classList.add('bx-menu');
+        });
+
+        document.querySelectorAll('.navbar a').forEach(link => {
+            link.addEventListener('click', () => {
+                navbar.classList.remove('active');
+                overlay.classList.remove('active');
+                menuIcon.classList.remove('bx-x');
+                menuIcon.classList.add('bx-menu');
+            });
+        });
+    </script>
+</body>
+</html>

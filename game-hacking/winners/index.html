@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Winners - Cybernerds KARE</title>
+    <link rel="stylesheet" href="../../CSS/style.css">
+    <link rel="stylesheet" href="../../CSS/game-hacking.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .content-section {
+            padding: 2rem;
+            margin-top: 5rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            color: #00ffff;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            color: #ffffff90;
+            font-size: 1.2rem;
+        }
+
+        .winners-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .winner-card {
+            background: rgba(19, 21, 29, 0.8);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .winner-position {
+            font-size: 2rem;
+            color: #00ffff;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .team-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 1rem;
+        }
+
+        .team-table th,
+        .team-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        .team-table th {
+            color: #00ffff;
+            font-weight: 600;
+        }
+
+        .team-table td {
+            color: #ffffff90;
+        }
+
+        /* Trophy icons with different colors */
+        .trophy-gold { color: #FFD700; }
+        .trophy-silver { color: #C0C0C0; }
+        .trophy-bronze { color: #CD7F32; }
+
+        /* Remove old confetti styles */
+        #confetti-canvas {
+            display: none;
+        }
+
+        /* CSS Confetti Animation */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1002;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 1;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Black overlay for confetti */
+        .confetti-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            z-index: 1001;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #00ffff;
+            font-size: 2rem;
+            transition: opacity 0.5s ease;
+        }
+
+        .confetti-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            .confetti {
+                animation: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .winner-card {
+                padding: 1rem;
+            }
+
+            .team-table th,
+            .team-table td {
+                padding: 0.5rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrixCanvas"></canvas>
+    <div class="confetti"></div>
+    <div class="confetti-overlay">Celebrating our Winners!</div>
+    <script src="../../JAVASCRIPT/matrix.js"></script>
+
+    <header class="header">
+        <a href="#" class="logo">{Cybernerds KARE}</a>
+        <nav class="navbar">
+            <a href="/" style="--i: 1">Home</a>
+            <a href="/game-hacking/problem-statements" style="--i: 2">Problem Statements</a>
+            <a href="/game-hacking/register" style="--i: 3">Register Now</a>
+            <a href="/game-hacking/teams" style="--i: 4">Teams</a>
+        </nav>
+    </header>
+
+    <section class="content-section">
+        <div class="section-header">
+            <h1 class="section-title">Winners</h1>
+            <p class="section-subtitle">Congratulations to our Game Hacking Champions!</p>
+        </div>
+
+        <div class="winners-container">
+            <!-- First Place -->
+            <div class="winner-card hover:transform hover:scale-105 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,255,255,0.3)]">
+                <div class="winner-position">
+                    <i class='bx bxs-trophy trophy-gold'></i>
+                    First Place
+                </div>
+                <table class="team-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Registration Number</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Mathivanan M</td>
+                            <td>99220041831</td>
+                        </tr>
+                        <tr>
+                            <td>[Team Member 2]</td>
+                            <td>[Reg Number]</td>
+                        </tr>
+                        <tr>
+                            <td>[Team Member 3]</td>
+                            <td>[Reg Number]</td>
+                        </tr>
+                        <tr>
+                            <td>[Team Member 4]</td>
+                            <td>[Reg Number]</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Second Place -->
+            <div class="winner-card hover:transform hover:scale-105 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,255,255,0.3)]">
+                <div class="winner-position">
+                    <i class='bx bxs-trophy trophy-silver'></i>
+                    Second Place
+                </div>
+                <table class="team-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Registration Number</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Thavamani</td>
+                            <td>[Reg Number]</td>
+                        </tr>
+                        <tr>
+                            <td>[Team Member 2]</td>
+                            <td>[Reg Number]</td>
+                        </tr>
+                        <tr>
+                            <td>[Team Member 3]</td>
+                            <td>[Reg Number]</td>
+                        </tr>
+                        <tr>
+                            <td>[Team Member 4]</td>
+                            <td>[Reg Number]</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Third Place -->
+            <div class="winner-card hover:transform hover:scale-105 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,255,255,0.3)]">
+                <div class="winner-position">
+                    <i class='bx bxs-trophy trophy-bronze'></i>
+                    Third Place
+                </div>
+                <table class="team-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Registration Number</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Naga Sai</td>
+                            <td>[Reg Number]</td>
+                        </tr>
+                        <tr>
+                            <td>[Team Member 2]</td>
+                            <td>[Reg Number]</td>
+                        </tr>
+                        <tr>
+                            <td>[Team Member 3]</td>
+                            <td>[Reg Number]</td>
+                        </tr>
+                        <tr>
+                            <td>[Team Member 4]</td>
+                            <td>[Reg Number]</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function createConfetti() {
+            const colors = [
+                '#FFD700', '#C0C0C0', '#CD7F32', '#00ffff', '#ffffff',
+                '#FF4500', '#FF69B4', '#00FF00', '#FF00FF', '#FFFF00',
+                '#00B7EB', '#FF1493', '#FFA500', '#9932CC', '#00FF7F'
+            ];
+            const confettiContainer = document.querySelector('.confetti');
+            const CONFETTI_COUNT = 300; // Increased number of pieces
+            const ANIMATION_DURATION = 3000; // Changed to 3 seconds
+
+            // Clear any existing confetti
+            confettiContainer.innerHTML = '';
+
+            // Create confetti pieces
+            for (let i = 0; i < CONFETTI_COUNT; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece';
+                
+                // Random properties
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const left = Math.random() * 100;
+                const size = Math.random() * 15 + 5; // Increased size range
+                const delay = Math.random() * 1000; // Random delay up to 1s
+                const duration = Math.random() * 1000 + 2000; // Random duration 2-3s
+                
+                // Apply styles
+                piece.style.cssText = `
+                    left: ${left}%;
+                    width: ${size}px;
+                    height: ${size}px;
+                    background-color: ${color};
+                    animation: fall ${duration}ms ease-in ${delay}ms forwards;
+                `;
+                
+                confettiContainer.appendChild(piece);
+            }
+
+            // Show confetti overlay
+            const overlay = document.querySelector('.confetti-overlay');
+            overlay.classList.remove('hidden');
+
+            // Clean up after animation
+            setTimeout(() => {
+                confettiContainer.innerHTML = '';
+                // Hide confetti overlay
+                overlay.classList.add('hidden');
+            }, ANIMATION_DURATION + 1000); // Add extra time for delayed pieces
+        }
+
+        // Start confetti when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            createConfetti();
+        });
+
+        // Remove the trophy hover event listener
+        // document.querySelectorAll('.winner-position').forEach(trophy => {
+        //     trophy.addEventListener('mouseenter', createConfetti);
+        // });
+    </script>
+</body>
+</html> 
