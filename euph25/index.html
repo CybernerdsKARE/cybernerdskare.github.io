@@ -339,6 +339,167 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
         }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+            margin: 2rem auto 3rem;
+            max-width: 1200px;
+            padding: 0 1rem;
+        }
+
+        .bento-grid-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .bento-item {
+            background: rgba(19, 21, 29, 0.8);
+            border: 1px solid #00ffff40;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: transform 0.2s;
+        }
+
+        .bento-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,255,255,0.2);
+        }
+
+        .event-details {
+            height: 100%;
+        }
+
+        .detail-row {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .detail-row i {
+            color: #00ffff;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .bento-grid-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Enhanced responsive styles */
+        @media (max-width: 1200px) {
+            .bento-grid {
+                max-width: 95%;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .bento-grid {
+                grid-template-columns: 3fr 2fr;
+                gap: 1rem;
+            }
+
+            .bento-grid-row {
+                gap: 1rem;
+            }
+
+            .card-title {
+                font-size: 1.1rem;
+            }
+
+            .rule-content {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 1rem;
+                margin-top: 4rem;
+            }
+
+            .bento-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                margin: 1.5rem auto;
+            }
+            
+            .bento-grid-row {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .bento-item {
+                padding: 1.2rem;
+            }
+
+            .icon-circle {
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+
+            .icon-circle i {
+                font-size: 1.2rem;
+            }
+
+            .button-container {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .pdf-button {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .whatsapp-button {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .bento-item {
+                padding: 1rem;
+            }
+
+            .detail-row {
+                gap: 0.5rem;
+                font-size: 0.9rem;
+            }
+
+            .card-title {
+                font-size: 1rem;
+            }
+
+            .rule-content {
+                font-size: 0.9rem;
+            }
+
+            .registration-card {
+                padding: 1.2rem;
+            }
+        }
+
+        /* Adjust button container layout */
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
     </style>
 </head>
 <body>
@@ -362,8 +523,26 @@
             <h1 class="section-title">Euphoria 2k25 - Hacker Hunt</h1>
         </div>
 
-        <div class="cards-container">
-            <div class="info-card">
+        <!-- Bento grid layout for event details -->
+        <div class="bento-grid">
+            <div class="bento-item event-details">
+                <div class="card-header">
+                    <div class="icon-circle">
+                        <i class='bx bx-calendar-event'></i>
+                    </div>
+                    <h3 class="card-title">Event Details</h3>
+                </div>
+                <div class="detail-row">
+                    <i class='bx bx-time'></i>
+                    <span>9:30 AM to 12:30 PM</span>
+                </div>
+                <div class="detail-row">
+                    <i class='bx bx-building'></i>
+                    <span>8601 Lab</span>
+                </div>
+            </div>
+
+            <div class="bento-item">
                 <div class="card-header">
                     <div class="icon-circle">
                         <i class='bx bx-time'></i>
@@ -373,24 +552,26 @@
                 <p class="rule-content">3 hours of intense ethical hacking challenge</p>
             </div>
 
-            <div class="info-card">
-                <div class="card-header">
-                    <div class="icon-circle">
-                        <i class='bx bx-group'></i>
+            <div class="bento-grid-row" style="grid-column: 1 / -1;">
+                <div class="bento-item">
+                    <div class="card-header">
+                        <div class="icon-circle">
+                            <i class='bx bx-group'></i>
+                        </div>
+                        <h3 class="card-title">Team Size</h3>
                     </div>
-                    <h3 class="card-title">Team Size</h3>
+                    <p class="rule-content">Exactly 3 members per team</p>
                 </div>
-                <p class="rule-content">Exactly 3 members per team</p>
-            </div>
 
-            <div class="info-card">
-                <div class="card-header">
-                    <div class="icon-circle">
-                        <i class='bx bx-code-alt'></i>
+                <div class="bento-item">
+                    <div class="card-header">
+                        <div class="icon-circle">
+                            <i class='bx bx-code-alt'></i>
+                        </div>
+                        <h3 class="card-title">Tools</h3>
                     </div>
-                    <h3 class="card-title">Tools</h3>
+                    <p class="rule-content">Use any legal cybersecurity tools and ethical hacking methods</p>
                 </div>
-                <p class="rule-content">Use any legal cybersecurity tools and ethical hacking methods</p>
             </div>
         </div>
 
