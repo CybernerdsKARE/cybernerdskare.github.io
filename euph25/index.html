@@ -46,7 +46,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            padding: 1.5rem 10%;
+            padding: 1rem 10%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -61,6 +61,42 @@
             color: var(--primary);
             font-size: 1.5rem;
             text-shadow: 0 0 10px var(--primary-glow);
+            position: relative;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+        }
+
+        .logo::before, .logo::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 4px;
+            padding: 2px;
+            background: linear-gradient(45deg, 
+                transparent 0%, 
+                var(--primary) 50%,
+                transparent 100%);
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        .logo:hover::before {
+            opacity: 1;
+            animation: borderRotate 4s linear infinite;
+        }
+
+        @keyframes borderRotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .content {
@@ -599,42 +635,103 @@
             }
         }
 
-        /* Navbar Styles */
+        /* Enhanced Navbar Styles */
+        .navbar {
+            display: flex;
+            gap: 2rem;
+        }
+
         .navbar a {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             color: var(--text);
             text-decoration: none;
             font-weight: 500;
-            margin-left: 2.5rem;
+            padding: 0.5rem 1rem;
             position: relative;
             transition: all 0.3s ease;
+            border-radius: 4px;
         }
 
         .navbar a::before {
             content: '';
             position: absolute;
-            bottom: -5px;
+            bottom: 0;
             left: 0;
-            width: 0;
+            width: 100%;
             height: 2px;
             background: var(--primary);
-            transition: width 0.3s ease;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
         }
 
         .navbar a:hover::before {
-            width: 100%;
+            transform: scaleX(1);
+            transform-origin: left;
         }
 
         .navbar a:hover {
             color: var(--primary);
             text-shadow: 0 0 10px var(--primary-glow);
-            outline: none;
         }
 
-        .navbar a:focus {
-            outline: 2px solid var(--primary);
-            outline-offset: 5px;
-            border-radius: 4px;
+        /* Mobile Menu Styles */
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 102;
+        }
+
+        .menu-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 99;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem 5%;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .navbar {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: var(--card-bg);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 5rem 2rem;
+                gap: 1.5rem;
+                transition: 0.3s ease;
+                border-left: 1px solid var(--border-color);
+            }
+
+            .navbar.active {
+                right: 0;
+            }
+
+            .navbar a {
+                width: 100%;
+                font-size: 1.2rem;
+            }
+
+            .menu-overlay.active {
+                display: block;
+            }
         }
     </style>
 </head>
@@ -645,10 +742,9 @@
             <i class='bx bx-menu'></i>
         </div>
         <nav class="navbar">
-            <a href="/" style="--i: 1">Home</a>
-            <!-- <a href="/cts" style="--i: 2">CTF Event</a> -->
-            <a href="/euph25/learning" style="--i: 2">Learning Materials</a>
-            <a href="https://euphoria.kalasalingam.ac.in/pages/form/registerform.php" style="--i: 3">Register Now</a>
+            <a href="/">Home</a>
+            <a href="/euph25/learning">Learning Materials</a>
+            <a href="https://euphoria.kalasalingam.ac.in/pages/form/registerform.php">Register Now</a>
         </nav>
     </header>
 
@@ -679,7 +775,7 @@
                     <i class='bx bx-building'></i>
                     <div>
                         <h4>Venue</h4>
-                        <span>8601 Lab</span>
+                        <span>8th Block, 8601 Lab, Ramanujan Block, Kalasalingam University, Krishnankoil, Tamil Nadu 626126</span>
                     </div>
                 </div>
             </div>
